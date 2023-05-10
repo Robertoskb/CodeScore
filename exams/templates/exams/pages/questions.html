@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Questões{% endblock title %}
+
+{% block content %}
+
+    {% for question in questions %}
+        <ul>
+            <li><a href="{% url 'exams:question' exam.slug question.slug %}">{{ question }}</a>
+        </ul>
+    {% endfor %}
+
+{% endblock content %}

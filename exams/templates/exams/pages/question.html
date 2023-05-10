@@ -1,0 +1,24 @@
+{% extends 'global/base.html' %}
+
+{% block title %} {{ question }} {% endblock title %}
+
+{% block content %}
+    <h1>{{ question }}</h1>
+    <a href="{% url 'exams:download_pdf' question.statement_pdf.name %}">Enunciado em PDF</a>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% for log in logs %}
+        <p>{{ log }}</p>
+    {% endfor %}
+
+    {% for question in questions %}
+        <a href="{% url 'exams:question' exam.slug question.slug %}">{{ question }}</a>
+    {% endfor %}
+
+{% endblock content %}

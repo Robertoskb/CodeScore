@@ -1,0 +1,11 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+    {% for exam in exams %}
+        <a href="{% url 'exams:exam' exam.slug %}">{{ exam }}</a>
+    {% endfor %}
+
+{% endblock content %}
