@@ -8,8 +8,12 @@ class PythonFileForm(forms.Form):
 
 
 class ExamForm(forms.ModelForm):
-    ...
+    class Meta:
+        model = Exam
+        fields = ['name']
 
 
 class QuestionForm(forms.ModelForm):
-    ...
+    class Meta:
+        model = Question
+        fields = ['name', 'statement_pdf', 'answer_zip']

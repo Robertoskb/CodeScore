@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <ul>
+        {% for exam in exams %}
+        <li><a href="{% url 'teachers:exam' exam.slug %}">{{ exam }}</a></li>
+        {% endfor %}
+        <li><a href="{% url 'teachers:create_exam' %}">Adicionar prova</a></li>
+    </ul>
+
+{% endblock content %}

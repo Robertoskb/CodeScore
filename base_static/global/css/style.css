@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+body {
+    background-color: #643173;
+    
+}
+
+.form-container {
+    margin-top: 130px;
+}
+
+.form-box {
+    margin: auto;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.prova-title {
+    margin-top: 20px;
+}
+
+.form-box form{
+    background-color: #333333;
+    color: #F1E9DB;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-box form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-box form input[type=text]{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.form-box form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #7D5BA6;
+    color: #F1E9DB;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.15s ease-in-out;
+}
+
+.button-cancel {
+    background-color: #d90429 ;
+    color: #F1E9DB;
+}
+
+.button-container {
+    width: 100%;
+}
+
+

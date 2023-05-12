@@ -1,31 +1,25 @@
 import os
 
 from django.conf import settings
-from django.http import Http404, HttpResponse
+from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
 from utils.corrector import corrigir
+from utils.get_exams import get_exam
 
 from .forms import PythonFileForm
 from .models import Exam
 
 
-def get_exam(exam_name):
-    return get_object_or_404(
-        Exam.objects.prefetch_related('questions'),
-        slug=exam_name)
-
-
-def download_pdf_view(request, path):
+def pdf_view(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
-        with open(file_path, 'rb') as f:
-            file_name = file_path.split('/')[-1]
-            response = HttpResponse(f.read(), content_type='application/pdf')
-            response['Content-Disposition'] = f'attachment; filename="{file_name}"'  # noqa:E501
+        file_name = file_path.split('/')[-1]
+        response = FileResponse(open(file_path, 'rb'), content_type='application/pdf')  # noqa:E501
+        response['Content-Disposition'] = f'attachment; filename="{file_name}"'  # noqa:E501
 
-            return response
+        return response
 
     except FileNotFoundError:
         raise Http404()

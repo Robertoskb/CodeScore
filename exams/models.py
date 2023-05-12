@@ -10,9 +10,11 @@ class Exam(models.Model):
     def __str__(self) -> str:
         return self.name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
 
 
 class Question(models.Model):
@@ -26,9 +28,11 @@ class Question(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.name)
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         unique_together = ('slug', 'exam')

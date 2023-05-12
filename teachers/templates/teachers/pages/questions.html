@@ -1,0 +1,16 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Questões{% endblock title %}
+
+{% block content %}
+
+        <ul>
+            {% for question in questions %}
+
+            <li><a href="{% url 'teachers:update_question' exam.slug question.slug %}" >{{ question }}</a>
+
+            {% endfor %}
+            <li><a href="{% url 'teachers:create_question' exam.slug %}">Adicionar Questão</a></li>
+        </ul>
+
+{% endblock content %}
