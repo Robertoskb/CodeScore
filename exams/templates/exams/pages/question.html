@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>{{ question }}</h1>
-    <a href="{% url 'exams:statement' question.statement_pdf.name %}" target="_blank">Enunciado em PDF</a>
+    <a href="{% url 'exams:statement' question.statement_pdf.name %}">Enunciado em PDF</a>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 

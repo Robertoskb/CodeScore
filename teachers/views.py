@@ -53,11 +53,21 @@ class CreateQuestion(FormView):
     form_class = QuestionForm
 
     def form_valid(self, form):
-        exam = form.save().exam
+        exam = get_exam(self.kwargs['exam'])
+        form.exam = exam
+
+        form.save()
 
         self.success_url = reverse('teachers:exam', args=(exam.slug,))
 
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['exam'] = get_exam(self.kwargs['exam'])
+
+        return context
 
 
 class UpdateQuestion(UpdateView):

@@ -20,7 +20,7 @@ class Exam(models.Model):
 class Question(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    statement_pdf = models.FileField(upload_to='exams/statments/')
+    statement_pdf = models.FileField(upload_to='exams/statements/')
     answer_zip = models.FileField(upload_to='exams/answers/')
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE, related_name='questions')
