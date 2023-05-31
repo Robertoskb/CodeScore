@@ -54,9 +54,10 @@ class CreateQuestion(FormView):
 
     def form_valid(self, form):
         exam = get_exam(self.kwargs['exam'])
-        form.exam = exam
 
-        form.save()
+        question = form.save(commit=False)
+        question.exam = exam
+        question.save()
 
         self.success_url = reverse('teachers:exam', args=(exam.slug,))
 

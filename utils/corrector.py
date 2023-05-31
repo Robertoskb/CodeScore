@@ -108,4 +108,4 @@ def corrigir(questao, gabarito):
 
     logs.append(f"Total de Acertos: {acertos}/{len(gab_out)}")
 
-    return logs
+    return logs or ['1', '2', '3', '4', '5', '6']

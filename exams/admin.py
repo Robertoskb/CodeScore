@@ -10,4 +10,4 @@ class ExamAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    ...
+    prepopulated_fields = {'slug': ('name',), }
