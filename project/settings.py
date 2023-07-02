@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'exams',
     'teachers',
     'profiles',
+    'students',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +95,7 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = {
     'suap_backend.backends.SuapOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 }
 
 # Password validation
@@ -138,10 +142,14 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+LOGIN_REDIRECT_URL = 'students:home'
+# LOGOUT_REDIRECT_URL = 'profiles:login'
+
 try:
     from .local_settings import *  # noqa:F403, F401
 except ImportError:
     pass
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -6,8 +6,9 @@
 
     <ul>
         {% for exam in exams %}
-        <li><a href="{% url 'exams:exam' exam.slug %}">{{ exam }}</a></li>
+        <li><a href="{% url 'students:exam' exam.slug %}">{{ exam }}</a></li>
         {% endfor %}
     </ul>
+    <a class="button is-danger is-large" href="{% url 'logout' %}?next=/">Encerrar Sessão</a>
 
 {% endblock content %}

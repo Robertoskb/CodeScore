@@ -4,7 +4,7 @@ from django.test import TestCase, override_settings
 from exams.models import Exam, Question
 
 
-class ExamMixin:
+class StudentMixin:
 
     def make_exam(self, name='Exam', avaliable=True):
         return Exam.objects.create(name=name, avaliable=avaliable)
@@ -35,5 +35,5 @@ class ExamMixin:
 
 
 @override_settings(MEDIA_ROOT='/tmp')
-class ExamTestBase(TestCase, ExamMixin):
+class StudentTestBase(TestCase, StudentMixin):
     ...
