@@ -11,9 +11,12 @@ from utils.corrector import corrigir
 from utils.get_exams import get_exam
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.models import User
+
 
 required = login_required(login_url='profiles:login',
                           redirect_field_name='next')
+
 
 @method_decorator(required, name='dispatch')
 def pdf_view(request, path):
@@ -28,6 +31,7 @@ def pdf_view(request, path):
     except FileNotFoundError:
         raise Http404()
 
+
 @method_decorator(required, name='dispatch')
 class HomeView(TemplateView):
     template_name = 'students/pages/home.html'
@@ -35,9 +39,13 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        pk = self.request.user.pk
+        print(User.objects.filter(pk=pk).first().type_user())
+
         context['exams'] = Exam.objects.all()
 
         return context
+
 
 @method_decorator(required, name='dispatch')
 class ExamView(TemplateView):

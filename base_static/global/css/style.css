@@ -38,7 +38,7 @@ h1 {
     font-weight: bold;
 }
 
-.form-box form input[type=text]{
+.form-box form input[type=text], input[type=password]{
     display: block;
     width: 100%;
     padding: 5px;
@@ -63,13 +63,21 @@ h1 {
     transition: all 0.15s ease-in-out;
 }
 
-.button-cancel {
+.form-box form .button-entrarSuap {
+    background-color: #198754;
+}
+
+.form-box form .button-cancel {
     background-color: #d90429 ;
     color: #F1E9DB;
 }
 
-.button-container {
+.form-box form .button-container {
     width: 100%;
+}
+
+.form-box form a {
+    text-decoration: none;
 }
 
 

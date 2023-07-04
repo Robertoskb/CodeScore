@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-
+    {{ user.type_user }}
     <ul>
         {% for exam in exams %}
         <li><a href="{% url 'students:exam' exam.slug %}">{{ exam }}</a></li>

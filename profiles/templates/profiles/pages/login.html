@@ -2,6 +2,30 @@
 
 {% block content %}
 
-<a class="button is-dark is-large" href="{% url 'social:begin' 'suap' %}">Login</a>
+<div class="form-container">
+    <div class="form-box">
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endfor %}
+
+            <div class="d-grid gap-2 col-6 mx-auto button-container">
+                <button class="btn btn-primary button-entrar" type="submit">Entrar</button>
+                <a class="button is-dark is-large" href="{% url 'social:begin' 'suap' %}">
+                    <button class="btn btn-primary button-entrarSuap" type="button">Entrar com o SUAP</button>
+                </a>
+            </div>
+
+
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
