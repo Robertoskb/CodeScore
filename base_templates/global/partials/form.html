@@ -6,6 +6,10 @@
             {% for field in form %}
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 {{ field }}
+
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
             {% endfor %}
 
             <div class="d-grid gap-2 col-6 mx-auto button-container">

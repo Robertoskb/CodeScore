@@ -9,8 +9,13 @@ from exams.forms import PythonFileForm
 from exams.models import Exam
 from utils.corrector import corrigir
 from utils.get_exams import get_exam
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+required = login_required(login_url='profiles:login',
+                          redirect_field_name='next')
 
+@method_decorator(required, name='dispatch')
 def pdf_view(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
@@ -23,7 +28,7 @@ def pdf_view(request, path):
     except FileNotFoundError:
         raise Http404()
 
-
+@method_decorator(required, name='dispatch')
 class HomeView(TemplateView):
     template_name = 'students/pages/home.html'
 
@@ -34,7 +39,7 @@ class HomeView(TemplateView):
 
         return context
 
-
+@method_decorator(required, name='dispatch')
 class ExamView(TemplateView):
     template_name = 'students/pages/questions.html'
 
