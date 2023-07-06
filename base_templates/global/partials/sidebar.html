@@ -1,55 +1,55 @@
 <nav>
+  <div class="logo">
+    <i class="bx bx-menu menu-icon"></i>
+    <span class="logo-name"></span>
+  </div>
+  <div class="sidebar">
     <div class="logo">
       <i class="bx bx-menu menu-icon"></i>
       <span class="logo-name"></span>
     </div>
-    <div class="sidebar">
-      <div class="logo">
-        <i class="bx bx-menu menu-icon"></i>
-        <span class="logo-name"></span>
-      </div>
-      <div class="sidebar-content">
-        <ul class="lists">
-          <li class="list menu-toggle">
-            <a href="#" class="nav-link">
-              <i class="bx bx-home-alt icon"></i>
-              <span class="link">Aluno</span>
-              <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
-            </a>
-            <ul class="submenu">
-              <li><a href="{% url 'students:home' %}">Provas</a></li>
-              <li><a href="#">Resultados</a></li>
-            </ul>
-          </li>
+    <div class="sidebar-content">
+      <ul class="lists">
+        <li class="list menu-toggle">
+          <a href="#" class="nav-link">
+            <i class="bx bx-home-alt icon"></i>
+            <span class="link">Aluno</span>
+            <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
+          </a>
+          <ul class="submenu">
+            <li><a href="{% url 'students:home' %}">Provas</a></li>
+            <li><a href="#">Resultados</a></li>
+          </ul>
+        </li>
 
-          <li class="list menu-toggle" >
-            <a href="#" class="nav-link">
-              <i class="bx bx-home-alt icon"></i>
-              <span class="link">Professores</span>
-              <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
-            </a>
-            <ul class="submenu">
-              <li><a href="{% url 'teachers:exams' %}">Provas</a></li>
-              <li><a href="#">Resultados</a></li>
-            </ul>
-          </li>
+        <li class="list menu-toggle" >
+          <a href="#" class="nav-link">
+            <i class="bx bx-home-alt icon"></i>
+            <span class="link">Professores</span>
+            <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
+          </a>
+          <ul class="submenu">
+            <li><a href="{% url 'teachers:exams' %}">Provas</a></li>
+            <li><a href="#">Resultados</a></li>
+          </ul>
+        </li>
 
-          
-          
-          <li class="divider"></li>
-          <li class="list">
-            <a href="#" class="nav-link">
-              <i class="bx bx-cog icon"></i>
-              <span class="link">Área do administrador</span>
-            </a>
-          </li>
-          <li class="list" id="saida">
-            <a href="{% url 'logout' %}?next=/" class="nav-link">
-              <i class="bx bx-log-out icon"></i>
-              <span class="link">Sair</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+        
+        
+        <li class="divider"></li>
+        <li class="list">
+          <a href="#" class="nav-link">
+            <i class="bx bx-cog icon"></i>
+            <span class="link">Área do administrador</span>
+          </a>
+        </li>
+        <li class="list" id="saida">
+          <a href="{% url 'logout' %}?next=/" class="nav-link">
+            <i class="bx bx-log-out icon"></i>
+            <span class="link">Sair</span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
