@@ -3,12 +3,11 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    {{ user.type_user }}
-    <ul>
-        {% for exam in exams %}
-        <li><a href="{% url 'students:exam' exam.slug %}">{{ exam }}</a></li>
-        {% endfor %}
-    </ul>
-    <a class="button is-danger is-large" href="{% url 'logout' %}?next=/">Encerrar Sessão</a>
+    <h1 class="title">Provas</h1>
+    
+    {% for exam in exams %}
+        {% include 'students/partials/exam_card.html' %}
+    {% endfor %}
+    
 
 {% endblock content %}
