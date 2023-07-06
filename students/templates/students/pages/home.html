@@ -5,9 +5,11 @@
 {% block content %}
     <h1 class="title">Provas</h1>
     
-    {% for exam in exams %}
-        {% include 'students/partials/exam_card.html' %}
-    {% endfor %}
+    <div class="card-wrapper">
+        {% for exam in exams %}
+            {% include 'students/partials/exam_card.html' %}
+        {% endfor %}
+    </div>
     
 
 {% endblock content %}
