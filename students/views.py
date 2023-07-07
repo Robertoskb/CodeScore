@@ -11,7 +11,7 @@ from utils.corrector import corrigir
 from utils.get_exams import get_exam
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from utils.sidebar_mixin import SideBarMixin
 
 required = login_required(login_url='profiles:login',
                           redirect_field_name='next')
@@ -32,7 +32,7 @@ def pdf_view(request, path):
 
 
 @method_decorator(required, name='dispatch')
-class HomeView(TemplateView):
+class HomeView(SideBarMixin, TemplateView):
     template_name = 'students/pages/home.html'
 
     def get_context_data(self, **kwargs):
@@ -44,7 +44,7 @@ class HomeView(TemplateView):
 
 
 @method_decorator(required, name='dispatch')
-class ExamView(TemplateView):
+class ExamView(SideBarMixin, TemplateView):
     template_name = 'students/pages/questions.html'
 
     def get_context_data(self, **kwargs):
@@ -63,7 +63,7 @@ class ExamView(TemplateView):
         return context
 
 
-class QuestionView(TemplateView):
+class QuestionView(SideBarMixin, TemplateView):
     template_name = 'students/pages/question.html'
 
     def get_context_data(self, **kwargs):

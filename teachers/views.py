@@ -4,9 +4,30 @@ from django.views.generic.edit import FormView, UpdateView
 
 from exams.forms import Exam, ExamForm, Question, QuestionForm
 from utils.get_exams import get_exam, get_object_or_404
+from django.core.exceptions import PermissionDenied
+from utils.sidebar_mixin import SideBarMixin, get_user_type
 
 
-class TeacherExams(TemplateView):
+class TeacherMixin(SideBarMixin, object):
+    def get(self, *args, **kwargs):
+        user_type = get_user_type(self.request.user)
+
+        if 'admin' != user_type != 'teacher':
+            raise PermissionDenied
+
+        return super(TeacherMixin, self).get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherMixin, self).get_context_data(**kwargs)
+
+        user_type = get_user_type(self.request.user)
+
+        context["teacher_permision"] = not ('admin' != user_type != 'teacher')
+
+        return context
+
+
+class TeacherExams(TeacherMixin, TemplateView):
     template_name = 'teachers/pages/exams.html'
 
     def get_context_data(self, **kwargs):

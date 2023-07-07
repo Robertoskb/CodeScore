@@ -11,14 +11,16 @@
                 <p class="card-text"><strong>Adicionar Prova</strong></p>
                 <div class="card-body">
                     <div class="button-card">
-                        <button type="button" class="btn btn-outline-success">Adicionar</button>
+                        <a href="{% url 'teachers:create_exam' %}">
+                            <button type="button" class="btn btn-outline-success">Adicionar</button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-            {% for exam in exams %}
-                {% include 'teachers/partials/exam_card.html' %}
-            {% endfor %}
+        {% for exam in exams %}
+            {% include 'teachers/partials/exam_card.html' %}
+        {% endfor %}
     </div>
 
 {% endblock content %}
