@@ -63,6 +63,7 @@ class ExamView(SideBarMixin, TemplateView):
         return context
 
 
+@method_decorator(required, name='dispatch')
 class QuestionView(SideBarMixin, TemplateView):
     template_name = 'students/pages/question.html'
 
