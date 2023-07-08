@@ -5,7 +5,7 @@ from . import views
 app_name = 'students'
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name='home'),
+    path('', views.ExamsView.as_view(), name='exams'),
     path('prova/<str:exam>/', views.ExamView.as_view(), name='exam'),
     path('prova/<str:exam>/<str:question>',
          views.QuestionView.as_view(), name='question'),

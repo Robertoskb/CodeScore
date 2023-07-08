@@ -1,16 +1,16 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from exams.forms import PythonFileForm
 from exams.models import Exam
 from utils.corrector import corrigir
 from utils.get_exams import get_exam
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from utils.sidebar_mixin import SideBarMixin
 
 required = login_required(login_url='profiles:login',
@@ -32,7 +32,7 @@ def pdf_view(request, path):
 
 
 @method_decorator(required, name='dispatch')
-class HomeView(SideBarMixin, TemplateView):
+class ExamsView(SideBarMixin, TemplateView):
     template_name = 'students/pages/home.html'
 
     def get_context_data(self, **kwargs):

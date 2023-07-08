@@ -45,6 +45,7 @@ class CreateQuestion(TeacherMixin, FormView):
         context = super().get_context_data(**kwargs)
 
         context['exam'] = get_exam(self.kwargs['exam'])
+        context['form_title'] = 'Cadastro de Questão'
 
         return context
 
@@ -53,6 +54,13 @@ class UpdateQuestion(TeacherMixin, UpdateView):
     template_name = 'teachers/pages/question_form.html'
     form_class = QuestionForm
     model_class = Question
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['form_title'] = 'Editar de Questão'
+
+        return context
 
     def form_valid(self, form):
         exam = form.save().exam

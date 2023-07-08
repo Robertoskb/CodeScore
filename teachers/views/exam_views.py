@@ -21,6 +21,13 @@ class CreateExam(TeacherMixin, FormView):
     template_name = 'teachers/pages/exam_form.html'
     form_class = ExamForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['form_title'] = 'Cadastro de Prova'
+
+        return context
+
     def form_valid(self, form):
         exam = form.save()
 

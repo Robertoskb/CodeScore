@@ -1,22 +1,20 @@
-<div class="form-container">
-    <div class="form-box">
-        <form enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
+<div class="form-box">
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
 
-            {% for field in form %}
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
 
-                {% for error in field.errors %}
-                    {{ error }}
-                {% endfor %}
+            {% for error in field.errors %}
+                {{ error }}
             {% endfor %}
+        {% endfor %}
 
-            <div class="d-grid gap-2 col-6 mx-auto button-container">
-                <button class="btn btn-primary button-entrar" type='submit'>Criar</button>
-                <button class="btn btn-primary button-cancel" type="button">Cancelar</button>
-            </div>
+        <div class="d-grid gap-2 col-6 mx-auto button-container">
+            <button class="btn btn-primary button-entrar" type='submit'>Criar</button>
+            <button class="btn btn-primary button-cancel" type="button">Cancelar</button>
+        </div>
 
-        </form>
-    </div>
+    </form>
 </div>

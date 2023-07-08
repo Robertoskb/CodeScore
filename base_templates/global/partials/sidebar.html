@@ -12,31 +12,49 @@
       <ul class="lists">
         <li class="list menu-toggle">
           <a class="nav-link">
-            <i class="bx bx-home-alt icon"></i>
+            <i class="bx bxs-book icon"></i>
             <span class="link">Aluno</span>
             <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
           </a>
           <ul class="submenu">
-            <li><a href="{% url 'students:home' %}">Provas</a></li>
-            <li><a href="#">Resultados</a></li>
+            <li class="list">
+              <a href="{% url 'students:exams' %}" class="nav-link">
+                <i class='bx bxl-python icon'></i>
+                <span class="link">Provas</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class='bx bx-stats icon'></i>
+                <span class="link">Resultados</span>
+              </a>
+            </li>
           </ul>
         </li>
 
         {% if teacher_permision is True %}
         <li class="list menu-toggle" >
           <a class="nav-link">
-            <i class="bx bx-home-alt icon"></i>
-            <span class="link">Professores</span>
+            <i class='bx bx-glasses-alt icon'></i>
+            <span class="link">Professor</span>
             <i class="bx bx-chevron-down arrow" style="color: #fff"></i>
           </a>
           <ul class="submenu">
-            <li><a href="{% url 'teachers:exams' %}">Provas</a></li>
-            <li><a href="#">Resultados</a></li>
+            <li class="list">
+              <a href="{% url 'teachers:exams' %}" class="nav-link">
+                <i class='bx bxl-python icon'></i>
+                <span class="link">Provas</span>
+              </a>
+            </li>
+            <li class="list">
+              <a href="#" class="nav-link">
+                <i class='bx bx-stats icon'></i>
+                <span class="link">Resultados</span>
+              </a>
+            </li>
           </ul>
         </li>
         {% endif %}
-
-        
         
         <div class="divider"></div>
         <li class="list">

@@ -5,22 +5,20 @@
 {% block content %}
 
     <h1 class="title">Provas</h1>
-    <div class="card-wrapper">
-        <div class="card d-inline-block" style="width: 14rem;">
+    <div class="card d-inline-block" style="width: 14rem;">
+        <div class="card-body">
+            <p class="card-text"><strong>Adicionar Prova</strong></p>
             <div class="card-body">
-                <p class="card-text"><strong>Adicionar Prova</strong></p>
-                <div class="card-body">
-                    <div class="button-card">
-                        <a href="{% url 'teachers:create_exam' %}">
-                            <button type="button" class="btn btn-outline-success">Adicionar</button>
-                        </a>
-                    </div>
+                <div class="button-card">
+                    <a href="{% url 'teachers:create_exam' %}">
+                        <button type="button" class="btn btn-outline-success">Adicionar</button>
+                    </a>
                 </div>
             </div>
         </div>
-        {% for exam in exams %}
-            {% include 'teachers/partials/exam_card.html' %}
-        {% endfor %}
     </div>
+    {% for exam in exams %}
+        {% include 'teachers/partials/exam_card.html' %}
+    {% endfor %}
 
 {% endblock content %}
