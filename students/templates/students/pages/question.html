@@ -3,22 +3,42 @@
 {% block title %} {{ question }} {% endblock title %}
 
 {% block content %}
-    <h1>{{ question }}</h1>
-    <a href="{% url 'students:statement' question.statement_pdf.name %}">Enunciado em PDF</a>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <h1 class="title-ambient">{{ question }}</h1>
+    <div class="questao-container">
+        <a href="{% url 'students:statement' question.statement_pdf.name %}" type="application/pdf" class="linkDownload">
+            <button class="btn btn-light downloadButton">Enunciado em PDF</button>
+        </a>
+        <br>
+        <br>
+        <form method="POST" enctype="multipart/form-data" class="alunoQuestao-form">
+            {% csrf_token %}
+            
+            <label for="{{ form.python_file.id_for_label }}" class="resposta-Aluno">{{ form.python_file.label }}</label>
+            <br>
+            {{ form.python_file }}
+            {{ form.python_file.errors }}
+            <br>
+            <br>
+            <div class="button-container">
+                <a href="{% url 'students:exam' exam.slug %}" class="btn btn-light button-questao">
+                    Voltar
+                </a>
+                <button class="btn btn-light button-questao" type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
 
-        {{ form.as_p }}
-
-        <button type="submit">Enviar</button>
-    </form>
-
-    {% for log in logs %}
-        <p>{{ log }}</p>
-    {% endfor %}
-
-    {% for question in questions %}
-        <a href="{% url 'students:question' exam.slug question.slug %}">{{ question }}</a>
-    {% endfor %}
+    {% if logs %}
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Total de Acertos: {{ score_message }}
+            </button>
+            <ul class="dropdown-menu">
+                {% for log in logs %}
+                    <li style="background-color:{{log.color}}"><div class="dropdown-item">{{log.message}}</div></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
 {% endblock content %}

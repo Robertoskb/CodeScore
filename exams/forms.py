@@ -4,7 +4,7 @@ from .models import Exam, Question
 
 
 class PythonFileForm(forms.Form):
-    python_file = forms.FileField(label='Arquivo Python')
+    python_file = forms.FileField(label='Arquivo Python:')
 
 
 class ExamForm(forms.ModelForm):

@@ -17,7 +17,7 @@ required = login_required(login_url='profiles:login',
                           redirect_field_name='next')
 
 
-@method_decorator(required, name='dispatch')
+@login_required(login_url='profiles:login', redirect_field_name='next')
 def pdf_view(request, path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
@@ -104,7 +104,9 @@ class QuestionView(StudentViewBase):
 
             python_file = form.cleaned_data['python_file']
             logs = corrigir(python_file, question.answer_zip.path)
+            score_info = logs.pop()
 
             context['logs'] = logs
+            context['score_message'] = f'{score_info["score"]}/{score_info["max_score"]}'  # noqa:E501
 
         return self.render_to_response(context)

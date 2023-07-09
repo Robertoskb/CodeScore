@@ -2,6 +2,15 @@ import operator
 import subprocess
 import zipfile
 
+error = {'message': 'Erro durante a execução',
+         'class': 'bx bx-error icon', 'color': '#F2BE24'}
+specific_error = {'message': '',
+                  'class': 'bx bx-error icon', 'color': '#F2BE24'}
+incorrect = {'message': 'A saída está errada',
+             'class': 'bx bx-x-circle icon', 'color': '#D94C1A'}
+correct = {'message': 'A saída está correta',
+           'class': 'bx bx-check-circle', 'color': '#04D939'}
+
 
 def corrigir(questao, gabarito):
     # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
@@ -91,21 +100,25 @@ def corrigir(questao, gabarito):
                                      text=True)
             stdoutdata, stderrdata = process.stdout, process.stderr
             if stderrdata:
-                logs.append("Erro: erro durante a execução")
+                logs.append(error)
             else:
                 saida = stdoutdata[:-1].split("\n")
                 saida = [k.lower() for k in saida]
                 gab_out[i] = [k.lower() for k in gab_out[i]]
                 if all(map(operator.eq, saida, gab_out[i])):
-                    logs.append("Correto: A saída está correta")
+                    logs.append(correct)
                     acertos += 1
                 else:
-                    logs.append("Incorreto: A saída está errada ")
+                    logs.append(incorrect)
         except subprocess.TimeoutExpired as e:
-            logs.append(f"Erro: {e}")
+            copy = specific_error.copy()
+            copy['message'] = f'Erro: {e}'
+            logs.append(copy)
         except Exception as e:
-            logs.append(f"Erro: {e}")
+            copy = specific_error.copy()
+            copy['message'] = f'Erro: {e}'
+            logs.append(copy)
 
-    logs.append(f"Total de Acertos: {acertos}/{len(gab_out)}")
+    logs.append({'score': acertos, 'max_score': len(gab_out)})
 
-    return logs or ['1', '2', '3', '4', '5', '6']
+    return logs

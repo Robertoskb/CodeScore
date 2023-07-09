@@ -1,0 +1,86 @@
+.title{
+    text-align: center;
+    margin-top: 80px;
+    color: white;
+    font-size: 28px;
+}
+
+.styleBody{
+    background-color: #643173;
+}
+
+.questao-container {
+    background-color: #7D5BA6;
+    color: #F1E9DB;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.questao-container2{
+    background-color: #7D5BA6;
+    color: #F1E9DB;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-toggle, .dropdown{
+    text-align: center;
+    width: 100%;
+    max-width: 640px;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+.dropdown-menu {
+    width: 94%;
+}
+
+
+.downloadButton{
+    text-decoration: none;
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px (0, 0, 0, 0.5);
+    background-color: #7D5BA6;
+}
+
+#arqResposta{
+    width:75%;
+}
+
+.button-questao {
+    width: 49.6%;
+    display: inline-block;
+}
+
+@media (max-width: 582px) {
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+    .button-questao {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+
+h5 {
+    text-align: center;
+}
+
+.linkDownload{
+    text-decoration: none;
+    color: black;
+}
+
