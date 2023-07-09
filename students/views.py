@@ -32,7 +32,11 @@ def pdf_view(request, path):
 
 
 @method_decorator(required, name='dispatch')
-class ExamsView(SideBarMixin, TemplateView):
+class StudentViewBase(SideBarMixin, TemplateView):
+    ...
+
+
+class ExamsView(StudentViewBase):
     template_name = 'students/pages/home.html'
 
     def get_context_data(self, **kwargs):
@@ -43,8 +47,7 @@ class ExamsView(SideBarMixin, TemplateView):
         return context
 
 
-@method_decorator(required, name='dispatch')
-class ExamView(SideBarMixin, TemplateView):
+class ExamView(StudentViewBase):
     template_name = 'students/pages/questions.html'
 
     def get_context_data(self, **kwargs):
@@ -52,7 +55,8 @@ class ExamView(SideBarMixin, TemplateView):
 
         exam_name = kwargs['exam']
 
-        exam = get_exam(exam_name)
+        exam = get_exam(exam_name, check_avaliable=True)
+
         questions = exam.questions.all()
 
         context.update({
@@ -63,8 +67,7 @@ class ExamView(SideBarMixin, TemplateView):
         return context
 
 
-@method_decorator(required, name='dispatch')
-class QuestionView(SideBarMixin, TemplateView):
+class QuestionView(StudentViewBase):
     template_name = 'students/pages/question.html'
 
     def get_context_data(self, **kwargs):
@@ -73,7 +76,8 @@ class QuestionView(SideBarMixin, TemplateView):
         question_name = kwargs['question']
         exam_name = kwargs['exam']
 
-        exam = get_exam(exam_name)
+        exam = get_exam(exam_name, check_avaliable=True)
+
         questions = exam.questions.all()
         question = get_object_or_404(questions, slug=question_name)
 
