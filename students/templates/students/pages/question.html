@@ -14,11 +14,15 @@
             {% csrf_token %}
             
             <label for="{{ form.python_file.id_for_label }}" class="resposta-Aluno">{{ form.python_file.label }}</label>
-            <br>
             {{ form.python_file }}
-            {{ form.python_file.errors }}
-            <br>
-            <br>
+
+            {% if form.python_file.errors %}
+                <div class="errors">
+                    {% for error in form.python_file.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="button-container">
                 <a href="{% url 'students:exam' exam.slug %}" class="btn btn-light button-questao">
                     Voltar

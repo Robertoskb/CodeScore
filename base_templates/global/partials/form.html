@@ -12,8 +12,10 @@
         {% endfor %}
 
         <div class="d-grid gap-2 col-6 mx-auto button-container">
-            <button class="btn btn-primary button-entrar" type='submit'>Criar</button>
-            <button class="btn btn-primary button-cancel" type="button">Cancelar</button>
+            <button class="btn btn-primary button-entrar" type='submit'>Salvar</button>
+            <a href="{{ cancel_url }}">
+                <button class="btn btn-primary button-cancel" type="button">Cancelar</button>
+            </a>
         </div>
 
     </form>

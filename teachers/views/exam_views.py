@@ -25,6 +25,7 @@ class CreateExam(TeacherMixin, FormView):
         context = super().get_context_data(**kwargs)
 
         context['form_title'] = 'Cadastro de Prova'
+        context['cancel_url'] = reverse('teachers:exams')
 
         return context
 

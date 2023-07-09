@@ -4,12 +4,12 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import FormView, TemplateView
 
 from exams.forms import PythonFileForm
-from exams.models import Exam
-from utils.corrector import corrigir
+from exams.models import Exam, Result
+from utils.corrector import corrector
 from utils.get_exams import get_exam
 from utils.sidebar_mixin import SideBarMixin
 
@@ -31,12 +31,7 @@ def pdf_view(request, path):
         raise Http404()
 
 
-@method_decorator(required, name='dispatch')
-class StudentViewBase(SideBarMixin, TemplateView):
-    ...
-
-
-class ExamsView(StudentViewBase):
+class ExamsView(SideBarMixin, TemplateView):
     template_name = 'students/pages/home.html'
 
     def get_context_data(self, **kwargs):
@@ -47,7 +42,7 @@ class ExamsView(StudentViewBase):
         return context
 
 
-class ExamView(StudentViewBase):
+class ExamView(SideBarMixin, TemplateView):
     template_name = 'students/pages/questions.html'
 
     def get_context_data(self, **kwargs):
@@ -67,14 +62,15 @@ class ExamView(StudentViewBase):
         return context
 
 
-class QuestionView(StudentViewBase):
+class QuestionView(SideBarMixin, FormView):
     template_name = 'students/pages/question.html'
+    form_class = PythonFileForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        question_name = kwargs['question']
-        exam_name = kwargs['exam']
+        question_name = self.kwargs['question']
+        exam_name = self.kwargs['exam']
 
         exam = get_exam(exam_name, check_avaliable=True)
 
@@ -83,30 +79,35 @@ class QuestionView(StudentViewBase):
 
         context.update({
             'question': question,
-            'form': PythonFileForm(),
             'exam': exam,
             'questions': questions,
         })
 
         return context
 
-    def post(self, request, *args, **kwargs):
-        form = PythonFileForm(request.POST, request.FILES)
+    def form_valid(self, form):
+        context = self.get_context_data()
 
-        context = self.get_context_data(**kwargs)
+        exam = context['exam']
+        question = context['question']
 
-        if form.is_valid():
-            question_name = kwargs['question']
-            exam_name = kwargs['exam']
+        self.success_url = reverse_lazy(
+            'students:question', args=(exam.slug, question.slug))
 
-            exam = get_exam(exam_name)
-            question = get_object_or_404(exam.questions, slug=question_name)
+        python_file = form.cleaned_data['python_file']
 
-            python_file = form.cleaned_data['python_file']
-            logs = corrigir(python_file, question.answer_zip.path)
-            score_info = logs.pop()
+        logs = corrector(python_file, question.answer_zip.path)
+        score, max_score = logs.pop().values()
 
-            context['logs'] = logs
-            context['score_message'] = f'{score_info["score"]}/{score_info["max_score"]}'  # noqa:E501
+        result = Result.objects.create(user=self.request.user,
+                                       question=question,
+                                       score_obtained=score,
+                                       max_score=max_score,
+                                       solution_file=python_file)
+
+        result.save()
+
+        context['logs'] = logs
+        context['score_message'] = f'{score}/{max_score}'
 
         return self.render_to_response(context)

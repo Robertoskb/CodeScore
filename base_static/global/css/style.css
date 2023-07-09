@@ -273,6 +273,15 @@ nav.open ~ .overlay {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.questao-container label, .errors{
+  margin-bottom:25px;
+  
+}
+
+.errors p {
+  color: rgb(194 0 0);
+}
+
 .questao-container2{
   background-color: #7D5BA6;
   color: #F1E9DB;

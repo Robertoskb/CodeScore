@@ -43,9 +43,13 @@ class CreateQuestion(TeacherMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        exam = get_exam(self.kwargs['exam'])
 
-        context['exam'] = get_exam(self.kwargs['exam'])
-        context['form_title'] = 'Cadastro de Questão'
+        context.update({
+            'exam': exam,
+            'form_title': 'Cadastro de Questão',
+            'cancel_url': reverse('teachers:exam', args=(exam.slug,)),
+        })
 
         return context
 
@@ -58,7 +62,10 @@ class UpdateQuestion(TeacherMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        exam = get_exam(self.kwargs['exam'])
+
         context['form_title'] = 'Editar de Questão'
+        context['cancel_url'] = reverse('teachers:exam', args=(exam.slug,))
 
         return context
 

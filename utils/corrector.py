@@ -12,7 +12,7 @@ correct = {'message': 'A saída está correta',
            'class': 'bx bx-check-circle', 'color': '#04D939'}
 
 
-def corrigir(questao, gabarito):
+def corrector(questao, gabarito):
     # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
     alg = questao.read().decode('utf-8').split('\n')
     arg = 1
@@ -119,6 +119,6 @@ def corrigir(questao, gabarito):
             copy['message'] = f'Erro: {e}'
             logs.append(copy)
 
-    logs.append({'score': acertos, 'max_score': len(gab_out)})
+    logs.append({'score': acertos*10, 'max_score': len(gab_out)*10})
 
     return logs
