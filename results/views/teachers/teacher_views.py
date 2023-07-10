@@ -5,7 +5,7 @@ from teachers.views import TeacherMixin
 from utils.get_exams import get_exam
 
 
-def get_sum_of_highest_scores(user, exam):
+def get_highest_scores(user, exam):
     highest_scores = {question.id: 0 for question in exam.questions.all()}
 
     results = Result.objects.filter(user=user, question__exam=exam)
@@ -18,7 +18,13 @@ def get_sum_of_highest_scores(user, exam):
         if submission_score > current_score:
             highest_scores[question_id] = submission_score
 
-    return sum(highest_scores.values())
+    return highest_scores
+
+
+def get_sum_of_highest_scores(user, exam):
+    scores = get_highest_scores(user, exam)
+
+    return sum(scores.values())
 
 
 class ExamResultsView(TeacherMixin, TemplateView):
@@ -31,7 +37,7 @@ class ExamResultsView(TeacherMixin, TemplateView):
         exam = get_exam(exam_name)
         users = User.objects.all()
 
-        users_score = ((user, get_sum_of_highest_scores(user, exam))
+        users_score = ((user, get_highest_scores(user, exam))
                        for user in users)
 
         context['users_scores'] = users_score
