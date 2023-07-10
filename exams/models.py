@@ -55,4 +55,4 @@ class Result(models.Model):
                 "Pontuação obtida não pode ser maior do que a pontuação máxima.")  # noqa:E50
 
     def __str__(self):
-        return f"{self.user} {self.question}"  # noqa:E501
+        return f"{self.user} {self.question}" 

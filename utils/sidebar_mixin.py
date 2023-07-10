@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 
 from .user_type import get_user_type
@@ -10,12 +9,6 @@ required = login_required(login_url='profiles:login',
 
 @method_decorator(required, name='dispatch')
 class SideBarMixin(object):
-    def validation(self):
-        user_type = get_user_type(self.request.user)
-
-        if 'admin' != user_type != 'teacher':
-            raise PermissionDenied
-
     def dispatch(self, *args, **kwargs):
         return super(SideBarMixin, self).dispatch(*args, **kwargs)
 
