@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
 from exams.forms import PythonFileForm
-from exams.models import Exam, Result
+from exams.models import Exam
+from results.models import Result
 from utils.corrector import corrector
 from utils.get_exams import get_exam
 from utils.sidebar_mixin import SideBarMixin
