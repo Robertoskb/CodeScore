@@ -12,7 +12,7 @@ class Result(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score_obtained = models.IntegerField()
     max_score = models.IntegerField()
-    solution_file = models.FileField(upload_to='exams/solutions')
+    solution_file = models.FileField(upload_to='exams/solutions/')
 
     def clean(self):
         if self.score_obtained > self.max_score:
@@ -20,4 +20,4 @@ class Result(models.Model):
                 "Pontuação obtida não pode ser maior do que a pontuação máxima.")  # noqa:E50
 
     def __str__(self):
-        return f"{self.user} {self.question}"
+        return f"{self.user}"
