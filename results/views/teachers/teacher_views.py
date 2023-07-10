@@ -37,7 +37,7 @@ class ExamResultsView(TeacherMixin, TemplateView):
         exam = get_exam(exam_name)
         users = User.objects.all()
 
-        users_score = ((user, get_highest_scores(user, exam))
+        users_score = ((user, get_sum_of_highest_scores(user, exam))
                        for user in users)
 
         context['users_scores'] = users_score
