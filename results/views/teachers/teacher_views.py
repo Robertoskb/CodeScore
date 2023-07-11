@@ -28,7 +28,7 @@ def get_sum_of_highest_scores(user, exam):
 
 
 class ExamResultsView(TeacherMixin, TemplateView):
-    template_name = ''
+    template_name = 'results/pages/exam_results.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,6 +40,7 @@ class ExamResultsView(TeacherMixin, TemplateView):
         users_score = ((user, get_sum_of_highest_scores(user, exam))
                        for user in users)
 
-        context['users_scores'] = users_score
+        context['users_score'] = users_score
+        context['exam'] = exam
 
         return context

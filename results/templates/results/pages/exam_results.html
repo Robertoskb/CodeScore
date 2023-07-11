@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Resultados{% endblock title %}
+
+{% block content %}
+    <h1 class="title">{{ exam.name }}</h1>
+    
+    {% for user, score in users_score %}
+        {% include 'results/partials/student_card.html' %}
+    {% endfor %}
+    
+
+{% endblock content %}
