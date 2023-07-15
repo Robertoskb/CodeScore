@@ -38,7 +38,7 @@ class ExamsView(SideBarMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['exams'] = Exam.objects.filter(avaliable=True)
+        context['exams'] = Exam.objects.filter(available=True)
 
         return context
 
@@ -51,7 +51,7 @@ class ExamView(SideBarMixin, TemplateView):
 
         exam_name = kwargs['exam']
 
-        exam = get_exam(exam_name, check_avaliable=True)
+        exam = get_exam(exam_name, check_available=True)
 
         questions = exam.questions.all()
 
@@ -73,7 +73,7 @@ class QuestionView(SideBarMixin, FormView):
         question_name = self.kwargs['question']
         exam_name = self.kwargs['exam']
 
-        exam = get_exam(exam_name, check_avaliable=True)
+        exam = get_exam(exam_name, check_available=True)
 
         questions = exam.questions.all()
         question = get_object_or_404(questions, slug=question_name)

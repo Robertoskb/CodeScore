@@ -5,7 +5,7 @@ from django.db import models
 class Exam(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = AutoSlugField(populate_from='name', unique=True)
-    avaliable = models.BooleanField(default=False)
+    available = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.name
