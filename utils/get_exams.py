@@ -13,3 +13,10 @@ def get_exam(exam_name, check_available=False):
         raise Http404()
 
     return exam
+
+
+def get_exam_by_code(code):
+    exam = Exam.objects.filter(
+        code=code, available=True).prefetch_related('questions')
+
+    return exam
