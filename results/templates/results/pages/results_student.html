@@ -1,0 +1,27 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+    <h1 class="title">Prova - Aluno</h1>
+    <h1 class="question-result-title">Questão</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Data e Hora</th>
+                <th>Pontuação</th>
+                <th>Arquivos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2023-07-17 14:30</td>
+                <td>85</td>
+                <td><button class="btn btn-light"><a href="#">arquivo1.txt</a></button></td>
+            </tr>
+            <tr>
+                <td>2023-07-17 15:45</td>
+                <td>92</td>
+                <td><button class="btn btn-light"><a href="#">arquivo2.txt</a></button></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}

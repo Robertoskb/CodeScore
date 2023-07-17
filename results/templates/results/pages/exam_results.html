@@ -6,8 +6,9 @@
     <h1 class="title">{{ exam.name }}</h1>
     
     {% for user, score in users_score %}
-        {% include 'results/partials/student_card.html' %}
+        {% if not score is None %}
+            {% include 'results/partials/student_card.html' %}
+        {% endif %}
     {% endfor %}
     
-
 {% endblock content %}

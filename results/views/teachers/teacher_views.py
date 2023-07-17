@@ -10,6 +10,9 @@ def get_highest_scores(user, exam):
 
     results = Result.objects.filter(user=user, question__exam=exam)
 
+    if not results:
+        return None
+
     for submission in results.prefetch_related('question'):
         question_id = submission.question.id
         current_score = highest_scores[question_id]
@@ -24,7 +27,7 @@ def get_highest_scores(user, exam):
 def get_sum_of_highest_scores(user, exam):
     scores = get_highest_scores(user, exam)
 
-    return sum(scores.values())
+    return sum(scores.values()) if scores is not None else scores
 
 
 class ExamResultsView(TeacherMixin, TemplateView):

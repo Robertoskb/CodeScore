@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-    background-color: #643173;
+    background-color: #417B5A;
     
 }
 
@@ -57,7 +57,7 @@ body {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #7D5BA6;
+    background-color: #2F5174;
     color: #F1E9DB;
     border: none;
     border-radius: 5px;
@@ -89,7 +89,8 @@ body {
     margin-top: 100px;
     color: white;
     font-size: 28px;
-    background-color: #643173;
+    background-color: #417B5A
+    ;
 }
 
 .card-wrapper {
@@ -139,7 +140,8 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  background: #643173;
+  background: #417B5A
+  ;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 nav .logo {
@@ -165,7 +167,7 @@ nav .sidebar {
   height: 100%;
   width: 260px;
   padding: 20px 0;
-  background-color: #643173;
+  background-color: #417B5A;
   box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.4s ease;
 }
@@ -209,11 +211,11 @@ nav.open .sidebar {
 }
 
 .list a:hover {
-  background-color: #4070f4;
+  background-color: #64B788;
 }
 
 .lists .nav-link:hover {
-  background-color: #4070f4;
+  background-color: #64B788;
 }
 .lists #saida .nav-link:hover {
   background-color: #d01919;
@@ -264,7 +266,7 @@ nav.open ~ .overlay {
 }
 
 .questao-container {
-  background-color: #7D5BA6;
+  background-color: #292F36;
   color: #F1E9DB;
   max-width: 600px;
   margin: 10px auto;
@@ -283,7 +285,7 @@ nav.open ~ .overlay {
 }
 
 .questao-container2{
-  background-color: #7D5BA6;
+  background-color: #292F36;
   color: #F1E9DB;
   max-width: 600px;
   margin: 10px auto;
@@ -314,6 +316,10 @@ nav.open ~ .overlay {
 }
 
 .dropdown-menu li{
+  border-radius: 20px;
+}
+
+.dropdown-item:hover{
   border-radius: 20px;
 }
 
@@ -363,3 +369,40 @@ h5 {
   color: black;
 }
 
+.question-result-title {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  margin-top: 80px;
+}
+
+table {
+  width: 50%;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #2F5174;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #64B788;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #64B788;
+}
+
+tr:nth-child(odd) {
+  background-color: #2F5174;
+}
