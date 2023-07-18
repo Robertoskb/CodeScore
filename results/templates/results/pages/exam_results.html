@@ -3,7 +3,7 @@
 {% block title %}Resultados{% endblock title %}
 
 {% block content %}
-    <h1 class="title">{{ exam.name }}</h1>
+    <h1 class="title">Resultados - {{ exam.name }}</h1>
     
     {% for user, score in users_score %}
         {% if not score is None %}
