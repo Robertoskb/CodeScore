@@ -1,6 +1,24 @@
 from results.models import Result
 
 
+def get_exam_results_from_user(user, exam):
+    questions = {question.name: [0] for question in exam.questions.all()}
+
+    results = Result.objects.filter(user=user, question__exam=exam)
+
+    for submission in results.prefetch_related('question'):
+        question_name = submission.question.name
+        questions[question_name].append(submission)
+
+        current_score = questions[question_name][0]
+        submission_score = submission.score_obtained
+
+        if submission_score > current_score:
+            questions[question_name][0] = submission_score
+
+    return questions
+
+
 def get_highest_scores(user, exam):
     highest_scores = {question.id: 0 for question in exam.questions.all()}
 
