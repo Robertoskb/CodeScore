@@ -76,6 +76,10 @@ body {
     background-color: #198754;
 }
 
+.form-box form .button-entrarSuap:hover {
+  background-color: #64b788;
+}
+
 .form-box form .button-cancel {
     background-color: #d90429 ;
     color: #F1E9DB;
@@ -90,12 +94,18 @@ body {
 }
 
 .title {
-    text-align: center;
-    margin-top: 100px;
-    color: white;
-    font-size: 28px;
-    background-color: #417B5A
-    ;
+  text-align: center;
+  margin-top: 100px;
+  color: white;
+  font-size: 28px;
+  background-color: #417B5A;
+}
+
+.title-2 {
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  background-color: #417B5A;
 }
 
 .card-wrapper {
@@ -391,6 +401,7 @@ table {
   background-color: #2F5174;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
 }
 
 

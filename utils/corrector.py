@@ -72,6 +72,14 @@ def corrector(questao, gabarito):
 
     with zipfile.ZipFile(gabarito) as myzip:
         path_name = gabarito.split('\\')[-1][:-4]
+
+        try:
+            with myzip.open(path_name) as f:
+                ...
+        except KeyError:
+            last = path_name.split('_')[-1]
+            path_name = path_name.replace(f'_{last}', '')
+
         for i in range(1, (len(myzip.namelist())//2)+1):
             with myzip.open(path_name+'/'+str(i)+".in") as f:
                 gab_in.append([x.decode('utf-8').strip()

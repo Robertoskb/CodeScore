@@ -4,7 +4,7 @@
         <div class="card-body">
             <p class="card-text">{{ score }} Pontos</p>
             <div class="button-card">
-                <a href="{% url 'results:user' exam.slug %}">
+                <a href="{% url 'results:user' exam.slug user.username %}">
                     <button type="button" class="btn btn-outline-success">Acessar</button>
                 </a>
             </div>

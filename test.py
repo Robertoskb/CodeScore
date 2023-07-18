@@ -1,2 +1,1 @@
-input()
-print(1765765)
+print(' ')

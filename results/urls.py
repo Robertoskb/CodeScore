@@ -6,5 +6,5 @@ app_name = 'results'
 
 urlpatterns = [
     path("prova/<str:exam>/", views.ExamResultsView.as_view(), name="exam"),
-    path("prova/<str:exam>/aluno", views.ResultsStudentView.as_view(), name="user")  # noqa:E501
+    path("prova/<str:exam>/<str:username>", views.ResultsStudentView.as_view(), name="user")  # noqa:E501
 ]

@@ -1,0 +1,19 @@
+<h1 class="question-result-title">{{ question_name }} - {{ results.score }} Pontos </h1>
+<table>
+    <thead>
+        <tr>
+            <th>Data e Hora</th>
+            <th>Pontuação</th>
+            <th>Arquivos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for submission in results.submissions %}
+            <tr>
+                <td>{{ submission.date|date:"d-m-Y" }} {{ submission.date|date:"h:i A" }}</td>
+                <td>{{ submission.score_obtained }}</td>
+                <td><button class="btn btn-light"><a href="#">arquivo.py</a></button></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
