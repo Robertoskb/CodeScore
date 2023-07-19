@@ -3,9 +3,29 @@
     <p class="card-text"><strong>{{ exam.name }}</strong></p>
         <div class="card-body">
             <div class="button-card">
-                <a href="{% url 'teachers:exam' exam.slug %}">
-                    <button type="button" class="btn btn-outline-success">Editar</button>
+                <a href="{% url 'teachers:exam' exam.slug %}" class="btnAcessar">
+                    <button type="button" class="btn btn-outline-success btnAcessar">Acessar</button>
                 </a>
+            </div>
+
+            <div>
+                <form action="" class="button-form inline-form">
+                    <button type="button" class="btn btn-outline-danger btnExcluir">Excluir</button>
+                </form>
+
+                <a href="{% url 'teachers:update_exam' exam.slug %}">
+                    <button type="button" class="btn btn-outline-info btnEditar">Editar</button>
+                </a>
+                
+                {% if not exam.available %}
+                    <form action="" class="button-form">
+                        <button type="button" class="btn btn-success btnPublicar">Publicar</button>
+                    </form>
+                {% else %}
+                    <form action="" class="button-form">
+                        <button type="button" class="btn btn-dark btnPrivar">Privar</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </div>

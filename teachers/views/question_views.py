@@ -16,7 +16,7 @@ class TeacherQuestions(TeacherMixin, TemplateView):
         exam_name = kwargs['exam']
 
         exam = get_exam(exam_name)
-        questions = exam.questions.all()
+        questions = exam.questions.all().order_by('-id')
 
         context.update({
             'exam': exam,

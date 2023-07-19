@@ -144,6 +144,21 @@ body {
   font-size: 20px;
 }
 
+.btnAcessar, 
+.btnPublicar, .btnPrivar{
+  width: 100%;
+}
+
+.btnEditar{
+  width: 48%;
+}
+
+.inline-form{
+  margin: 0;
+  display: inline-block;
+  width: 48%;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 * {
   margin: 0;
