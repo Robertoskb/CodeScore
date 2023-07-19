@@ -43,6 +43,10 @@ body {
     font-weight: bold;
 }
 
+.form-box form input {
+    margin-bottom:10px;
+}
+
 .form-box form input[type=text], input[type=password]{
     display: block;
     width: 100%;
