@@ -21,12 +21,12 @@ def get_exam_results_from_user(user, exam):
 
 
 def get_highest_scores(user, exam):
-    highest_scores = {question.id: 0 for question in exam.questions.all()}
-
     results = Result.objects.filter(user=user, question__exam=exam)
 
     if not results:
         return None
+
+    highest_scores = {question.id: 0 for question in exam.questions.all()}
 
     for submission in results.prefetch_related('question'):
         question_id = submission.question.id

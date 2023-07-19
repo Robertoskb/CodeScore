@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.views.generic import TemplateView
 
-from results.views.utils import get_exam_results_from_user
+from results.views.utils import Result, get_exam_results_from_user
 from utils.get_exams import get_exam, get_object_or_404
 from utils.sidebar_mixin import SideBarMixin, get_user_type
 
@@ -40,6 +40,36 @@ class ResultsStudentView(SideBarMixin, TemplateView):
         user_type_validation = 'admin' != user_type != 'teacher'
 
         if username_validation and user_type_validation:
+            raise PermissionDenied
+
+        return super().get(*args, **kwargs)
+
+
+class ResultsStudentOverView(SideBarMixin, TemplateView):
+    template_name = 'results/pages/results_overview.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        username = kwargs['username']
+        user = get_object_or_404(User, username=username)
+
+        results = Result.objects.filter(user=user)
+
+        exams = {}
+        for result in results.prefetch_related('question', 'question__exam'):
+            exam = result.question.exam
+            exams[exam.name] = exam.slug
+
+        context.update({
+            'exams': exams,
+        })
+
+        return context
+
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        if user.username != kwargs['username']:
             raise PermissionDenied
 
         return super().get(*args, **kwargs)
