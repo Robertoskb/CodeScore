@@ -1,12 +1,30 @@
+import os
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.http import FileResponse, Http404
 from django.views.generic import TemplateView
 
 from results.views.utils import Result, get_exam_results_from_user
 from utils.get_exams import get_exam, get_object_or_404
-from utils.sidebar_mixin import SideBarMixin, get_user_type
+from utils.sidebar_mixin import SideBarMixin, get_user_type, login_required
 
 User = get_user_model()
+
+
+@login_required(login_url='profiles:login', redirect_field_name='next')
+def python_download_view(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    try:
+        file_name = file_path.split('/')[-1]
+        response = FileResponse(open(file_path, 'rb'), content_type='text/x-python')  # noqa:E501
+        response['Content-Disposition'] = f'attachment; filename="{file_name}"'  # noqa:E501
+
+        return response
+
+    except FileNotFoundError:
+        raise Http404()
 
 
 class ResultsStudentView(SideBarMixin, TemplateView):
