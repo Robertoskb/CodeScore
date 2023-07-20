@@ -15,6 +15,7 @@ correct = {'message': 'A saída está correta',
 def replace_inputs(alg):
     algfinal = "import sys\niter_args = iter(sys.argv[1:])\n"
     for l in alg:  # noqa: E741
+        print(l)
         if l.startswith("#"):
             continue
 
@@ -27,7 +28,7 @@ def replace_inputs(alg):
         else:
             algfinal += l
 
-        algfinal += '\n'
+    algfinal += '\n'
 
     return algfinal
 
@@ -85,9 +86,9 @@ def corrector(questao, gabarito):
                     acertos += 1
                 else:
                     logs.append(incorrect)
-        except subprocess.TimeoutExpired as e:
+        except subprocess.TimeoutExpired:
             copy = specific_error.copy()
-            copy['message'] = f'Erro: {e}'
+            copy['message'] = 'Erro: Excedeu o tempo de limite de execução'
             logs.append(copy)
         except Exception as e:
             copy = specific_error.copy()
