@@ -1,8 +1,10 @@
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView, TemplateView, UpdateView
+from django.views.generic import FormView, TemplateView, UpdateView, View
 
 from exams.forms import Exam, ExamForm
 from utils.get_exams import get_exam
+
 from .teacher_mixin import TeacherMixin
 
 
@@ -53,3 +55,12 @@ class UpdateExam(TeacherMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return get_exam(self.kwargs['exam'])
+
+
+class DeleteExam(TeacherMixin, View):
+    def post(self, *args, **kwargs):
+        exam = get_exam(self.request.POST.get('exam', None))
+
+        exam.delete()
+
+        return redirect(reverse('teachers:exams'))

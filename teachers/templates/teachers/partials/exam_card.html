@@ -9,8 +9,10 @@
             </div>
 
             <div>
-                <form action="" class="button-form inline-form">
-                    <button type="button" class="btn btn-outline-danger btnExcluir">Excluir</button>
+                <form action="{% url 'teachers:exam_delete' %}" class="button-form inline-form" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="exam" value="{{ exam.slug }}">
+                    <button type="submit" class="btn btn-outline-danger btnExcluir">Excluir</button>
                 </form>
 
                 <a href="{% url 'teachers:update_exam' exam.slug %}">
@@ -19,10 +21,12 @@
                 
                 {% if not exam.available %}
                     <form action="" class="button-form">
+                        {% csrf_token %}
                         <button type="button" class="btn btn-success btnPublicar">Publicar</button>
                     </form>
                 {% else %}
                     <form action="" class="button-form">
+                        {% csrf_token %}
                         <button type="button" class="btn btn-dark btnPrivar">Privar</button>
                     </form>
                 {% endif %}
