@@ -1,4 +1,13 @@
+from django.db.models import Max
+
 from results.models import Result
+
+
+def get_questions_maximum_score(user, question):
+    filter = Result.objects.filter(user=user, question=question)
+    max_score = filter.aggregate(Max('score_obtained'))['score_obtained__max']
+
+    return max_score
 
 
 def get_exam_results_from_user(user, exam):
