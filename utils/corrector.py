@@ -15,7 +15,6 @@ correct = {'message': 'A saída está correta',
 def replace_inputs(alg):
     algfinal = "import sys\niter_args = iter(sys.argv[1:])\n"
     for l in alg:  # noqa: E741
-        print(l)
         if l.startswith("#"):
             continue
 
