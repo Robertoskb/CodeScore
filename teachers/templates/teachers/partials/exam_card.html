@@ -20,14 +20,18 @@
                 </a>
                 
                 {% if not exam.available %}
-                    <form action="" class="button-form">
+                    <form action="{% url 'teachers:exam_status' %}" class="button-form" method="post">
                         {% csrf_token %}
-                        <button type="button" class="btn btn-success btnPublicar">Publicar</button>
+
+                        <input type="hidden" name="exam" value="{{ exam.slug }}">
+                        <button type="submit" class="btn btn-success btnPublicar">Publicar</button>
                     </form>
                 {% else %}
-                    <form action="" class="button-form">
+                    <form action="{% url 'teachers:exam_status' %}" class="button-form" method="post">
                         {% csrf_token %}
-                        <button type="button" class="btn btn-dark btnPrivar">Privar</button>
+                        
+                        <input type="hidden" name="exam" value="{{ exam.slug }}">
+                        <button type="submit" class="btn btn-dark btnPrivar">Privar</button>
                     </form>
                 {% endif %}
             </div>

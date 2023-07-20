@@ -11,6 +11,7 @@ urlpatterns = [
     path("prova/<str:exam>/criar/",
          views.CreateQuestion.as_view(), name="create_question"),
     path("prova/excluir", views.DeleteExam.as_view(), name="exam_delete"),
+    path("prova/status", views.ChangeExamStatus.as_view(), name="exam_status"),
     path("prova/<str:exam>/editar/",
          views.UpdateExam.as_view(), name="update_exam"),
     path("prova/<str:exam>/<str:question>/editar/",

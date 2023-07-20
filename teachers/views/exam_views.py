@@ -64,3 +64,13 @@ class DeleteExam(TeacherMixin, View):
         exam.delete()
 
         return redirect(reverse('teachers:exams'))
+
+
+class ChangeExamStatus(TeacherMixin, View):
+    def post(self, *args, **kwargs):
+        exam = get_exam(self.request.POST.get('exam', None))
+
+        exam.available = not exam.available
+        exam.save()
+
+        return redirect(reverse('teachers:exams'))
