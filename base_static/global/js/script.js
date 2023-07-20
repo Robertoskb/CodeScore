@@ -19,3 +19,22 @@ const navBar = document.querySelector("nav"),
         });
       });
     });
+
+(() => {
+  const forms = document.querySelectorAll('.delete-form');
+
+  for (const form of forms){
+    if (form) {
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const confirmed = confirm('Você tem certeza?');
+
+        if (confirmed) {
+          form.submit();
+        }
+      });
+    }
+  }
+
+})();

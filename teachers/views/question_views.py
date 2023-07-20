@@ -1,5 +1,6 @@
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import FormView, TemplateView, UpdateView
+from django.views.generic import FormView, TemplateView, UpdateView, View
 
 from exams.forms import Question, QuestionForm
 from utils.get_exams import get_exam, get_object_or_404
@@ -81,3 +82,14 @@ class UpdateQuestion(TeacherMixin, UpdateView):
         questions = exam.questions.all()
 
         return get_object_or_404(questions, slug=self.kwargs['question'])
+
+
+class DeleteQuestion(TeacherMixin, View):
+    def post(self, *args, **kwargs):
+        pk = self.request.POST.get('question', None)
+        question = get_object_or_404(Question, pk=pk)
+        exam = question.exam
+
+        question.delete()
+
+        return redirect(reverse('teachers:exam', args=(exam.slug,)))

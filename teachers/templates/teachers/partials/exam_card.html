@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <form action="{% url 'teachers:exam_delete' %}" class="button-form inline-form" method="post">
+                <form action="{% url 'teachers:exam_delete' %}" class="button-form inline-form delete-form" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="exam" value="{{ exam.slug }}">
                     <button type="submit" class="btn btn-outline-danger btnExcluir">Excluir</button>
