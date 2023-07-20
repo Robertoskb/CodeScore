@@ -12,56 +12,30 @@ correct = {'message': 'A saída está correta',
            'class': 'bx bx-check-circle', 'color': '#04D939'}
 
 
-def corrector(questao, gabarito):
-    # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
-    alg = questao.read().decode('utf-8').split('\n')
-    arg = 1
-    algfinal = "import sys\n"
+def replace_inputs(alg):
+    algfinal = "import sys\niter_args = iter(sys.argv[1:])\n"
     for l in alg:  # noqa: E741
         if l.startswith("#"):
             continue
-        # verifica se existe mais de um input na mesma linha, se sim,
-        # troca todos incrementando o arg
-        if l.count("input") == 1:
-            # preciso verificar se o input esta dentro de um for,
-            # para eu poder sustituir por por sys.argv[i+arg]
-            if (l.startswith(" ") or l.startswith("\t")) and (alg[alg.index(l)-1].startswith("for")):  # noqa: E501
-                var_do_for = alg[alg.index(l)-1].split()[1]
-                aux = alg[alg.index(l)-1]
-                aux = aux[aux.index("(")+1:aux.index(")")].split(",")
-                algfinal += l.replace(l[l.find("input"): l.find(")", l.find(
-                    "input")) + 1],
-                    "sys.argv["+var_do_for+"+" + str(arg) + "]")
-                if len(aux) > 1:
-                    try:
-                        arg += int(aux[1])
-                    except:  # noqa: E722
-                        pass
-                else:
-                    try:
-                        arg += int(aux[-1])
-                    except:  # noqa: E722
-                        pass
-            elif l.count("for") > 1:
-                var_do_for = l[l.rindex("for"):].split()[1]
-                algfinal += l.replace(l[l.find("input"):l.find(")", l.find(
-                    "input")) + 1], "sys.argv[" + var_do_for+"+"+str(arg) + "]")  # noqa: E501
-            else:
-                algfinal += l.replace(l[l.find("input"):l.find(")",
-                                      l.find("input")) + 1],
-                                      "sys.argv[" + str(arg) + "]")
-                arg += 1
-        elif l.count("input") > 1:
+
+        if "input" in l:
             aux = l
-            while aux.count("input") > 0:
-                aux = aux.replace(aux[aux.find("input"):aux.find(")", aux.find(
-                    "input")) + 1], "sys.argv[" + str(arg) + "]", 1)
-                arg += 1
+            while "input" in aux:
+                aux = aux.replace(aux[aux.find("input"):aux.find(
+                    ")", aux.find("input")) + 1], "next(iter_args)", 1)
             algfinal += aux
         else:
             algfinal += l
 
         algfinal += '\n'
+
+    return algfinal
+
+
+def corrector(questao, gabarito):
+    # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
+    alg = questao.read().decode('utf-8').split('\n')
+    algfinal = replace_inputs(alg)
 
     with open("temp.py", "w") as file:
         file.write(algfinal)
