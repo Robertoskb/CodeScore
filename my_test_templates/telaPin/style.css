@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+body {
+    background-color: #417B5A;
+}
+
+.logoSite{
+    text-align: center;
+    margin-bottom: 1%;
+    
+}
+
+.logoSite img {
+    max-width: 250px;
+    width: 97%;
+}
+ 
+.login-container, .cadastroP-container, .cadastroQ-container, .pin-container {
+    margin-top: 85px;
+}
+
+.login-box, .cadastroProva-box, .cadastroQuestao-box, .pin-box {
+    margin: auto;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.prova-title {
+    margin-top: 20px;
+}
+
+.login-form, .prova-form, .pin-form {
+    background-color: #292F36;
+    color: #F1E9DB;
+    max-width: 300px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.questao-form {
+    background-color: #333333;
+    color: #F1E9DB;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.user-label, .password-label, .prova-label, .questao-label, .enunciado-label, .gabarito-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.user-box, .password-box, .prova-box, .questao-box, .enunciado-box, .gabarito-box, .pin-box{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.button-entrarSuap, .button-entrarProva {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #198754;
+    color: #F1E9DB;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.15s ease-in-out;
+}
+
+.button-entrar,
+.button-cancelLogin, 
+ .button-criarProva, 
+ .button-cancelProva, 
+ .button-criarQuestao, 
+ .button-cancelQuestao {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #2F5174;
+    color: #F1E9DB;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.15s ease-in-out;
+}
+
+.button-cancelQuestao, 
+.button-cancelProva,
+.button-cancelLogin {
+    background-color: #d90429 ;
+    color: #F1E9DB;
+}
+
+.button-container {
+    width: 100%;
+}
+
+
