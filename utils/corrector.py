@@ -18,15 +18,11 @@ def replace_inputs(alg):
         if l.startswith("#"):
             continue
 
-        if "input" in l:
-            aux = l
-            while "input" in aux:
-                aux = aux.replace(aux[aux.find("input"):aux.find(
-                    ")", aux.find("input")) + 1], "next(iter_args)", 1)
-            algfinal += aux
-        else:
-            algfinal += l
-
+        aux = l
+        while "input" in aux:
+            aux = aux.replace(aux[aux.find("input"):aux.find(
+                ")", aux.find("input")) + 1], "next(iter_args)", 1)
+        algfinal += aux
     algfinal += '\n'
 
     return algfinal
