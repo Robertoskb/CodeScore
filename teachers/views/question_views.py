@@ -31,6 +31,19 @@ class CreateQuestion(TeacherMixin, FormView):
     template_name = 'teachers/pages/question_form.html'
     form_class = QuestionForm
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+
+        name = request.POST.get('name')
+        exam = self.get_context_data(**kwargs)['exam']
+
+        if Question.objects.filter(name=name, exam=exam).exists():
+            form.add_error(
+                'name', 'Já existe uma questão com esse nome nessa prova')
+
+            return self.form_invalid(form)
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
         exam = get_exam(self.kwargs['exam'])
 
