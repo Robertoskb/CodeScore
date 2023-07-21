@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
 from exams.forms import PythonFileForm
-from exams.models import Exam
+from exams.models import Exam, Question
 from results.models import Result
 from utils.corrector import corrector
 from utils.get_exams import get_exam
@@ -75,25 +75,36 @@ class QuestionView(SideBarMixin, FormView):
 
         exam = get_exam(exam_name, check_available=True)
 
-        questions = exam.questions.all()
-        question = get_object_or_404(questions, slug=question_name)
+        question = get_object_or_404(Question, slug=question_name)
 
         context.update({
             'question': question,
             'exam': exam,
-            'questions': questions,
         })
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        user = self.request.user
+        question = self.get_context_data()['question']
+
+        existing_results = Result.objects.filter(
+            user=user, question=question).count()
+
+        if existing_results > 50:
+            form.add_error(
+                'python_file', 'Número máximo de submissões atingido')
+
+            return self.form_invalid(form)
+
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         context = self.get_context_data()
 
         exam = context['exam']
         question = context['question']
-
-        self.success_url = reverse_lazy(
-            'students:question', args=(exam.slug, question.slug))
 
         python_file = form.cleaned_data['python_file']
 
@@ -110,5 +121,8 @@ class QuestionView(SideBarMixin, FormView):
 
         context['logs'] = logs
         context['score_message'] = f'{score}/{max_score}'
+
+        self.success_url = reverse_lazy(
+            'students:question', args=(exam.slug, question.slug))
 
         return self.render_to_response(context)
