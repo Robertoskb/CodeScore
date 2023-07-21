@@ -16,11 +16,12 @@ class Exam(models.Model):
     available = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        length = 6
+        if self.pk is None:
+            length = 6
 
-        self.code = get_code(length)
-        while Exam.objects.filter(code=self.code).exists():
             self.code = get_code(length)
+            while Exam.objects.filter(code=self.code).exists():
+                self.code = get_code(length)
 
         return super().save(*args, **kwargs)
 

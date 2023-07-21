@@ -16,7 +16,8 @@ def get_exam(exam_name, check_available=False):
 
 
 def get_exam_by_code(code):
-    exam = Exam.objects.filter(
-        code=code, available=True).prefetch_related('questions')
+    exam = get_object_or_404(
+        Exam.objects.prefetch_related('questions'),
+        code=code, available=True)
 
     return exam

@@ -141,7 +141,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-LOGIN_REDIRECT_URL = 'students:exams'
+LOGIN_REDIRECT_URL = 'students:search_pin'
 # LOGOUT_REDIRECT_URL = 'profiles:login'
 
 try:

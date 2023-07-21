@@ -11,7 +11,7 @@ def get_success_url(user):
     urls = {'admin': 'teachers:exams', 'teacher': 'teachers:exams'}
     user_type = get_user_type(user)
 
-    return reverse_lazy(urls.get(user_type, 'students:exams'))
+    return reverse_lazy(urls.get(user_type, 'students:search_pin'))
 
 
 class LoginView(FormView):

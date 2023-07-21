@@ -5,9 +5,9 @@ from . import views
 app_name = 'students'
 
 urlpatterns = [
-    path('', views.ExamsView.as_view(), name='exams'),
-    path('prova/<str:exam>/', views.ExamView.as_view(), name='exam'),
-    path('prova/<str:exam>/<str:question>',
+    path('', views.SearchPINView.as_view(), name='search_pin'),
+    path('prova/<str:pin>/', views.ExamView.as_view(), name='exam'),
+    path('prova/<str:pin>/<str:question>',
          views.QuestionView.as_view(), name='question'),
     path('enunciado/<path:path>/',
          views.pdf_view, name='statement')

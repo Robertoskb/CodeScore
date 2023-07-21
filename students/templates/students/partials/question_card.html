@@ -3,7 +3,7 @@
     <p class="card-text"><strong>{{ question }}</strong></p>
         <div class="card-body">
             <div class="button-card">
-                <a href="{% url 'students:question' exam.slug question.slug %}">
+                <a href="{% url 'students:question' exam.code question.slug %}">
                     <button type="button" class="btn btn-outline-success">Acessar</button>
                 </a>
             </div>

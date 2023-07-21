@@ -24,7 +24,7 @@
           </a>
           <ul class="submenu">
             <li class="list">
-              <a href="{% url 'students:exams' %}" class="nav-link">
+              <a href="{% url 'students:search_pin' %}" class="nav-link">
                 <i class='bx bxl-python icon'></i>
                 <span class="link">Provas</span>
               </a>
@@ -52,23 +52,27 @@
                 <span class="link">Provas</span>
               </a>
             </li>
+            {% comment "" %}
             <li class="list">
               <a href="#" class="nav-link">
                 <i class='bx bx-stats icon'></i>
                 <span class="link">Resultados</span>
               </a>
             </li>
+            {% endcomment %}
           </ul>
         </li>
         {% endif %}
         
         <div class="divider"></div>
+        {% comment "" %}
         <li class="list">
           <a href="#" class="nav-link">
             <i class="bx bx-cog icon"></i>
             <span class="link">Área do administrador</span>
           </a>
         </li>
+        {% endcomment %}
         <li class="list" id="saida">
           <a href="{% url 'logout' %}?next=/" class="nav-link">
             <i class="bx bx-log-out icon"></i>

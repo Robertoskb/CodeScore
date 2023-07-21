@@ -5,7 +5,7 @@ from .models import Exam, Question
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'available',)
+    list_display = ('name', 'available', 'code',)
 
     list_display_links = ('name',)
 

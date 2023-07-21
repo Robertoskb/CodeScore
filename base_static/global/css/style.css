@@ -3,6 +3,9 @@
 body {
     background-color: #417B5A;
 }
+main {
+  padding-top: 100px;
+}
 
 .logoSite{
   text-align: center;
@@ -22,7 +25,7 @@ body {
 }
 
 .form-container {
-    margin-top: 130px;
+    margin-top: 30px;
 }
 
 .form-box {
@@ -34,9 +37,6 @@ body {
     text-align: center;
 }
 
-.prova-title {
-    margin-top: 20px;
-}
 
 .form-box form{
     background-color: #333333;
@@ -110,7 +110,6 @@ body {
 
 .title {
   text-align: center;
-  margin-top: 100px;
   color: white;
   font-size: 28px;
   background-color: #417B5A;
@@ -139,7 +138,6 @@ body {
 }
 
 .plusAddProvas {
-
   margin-left: 60px;
 }
 
@@ -185,8 +183,7 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  background: #417B5A
-  ;
+  background: #417B5A;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 nav .logo {
@@ -305,7 +302,6 @@ nav.open ~ .overlay {
 
 .title-ambient{
   text-align: center;
-  margin-top: 80px;
   color: white;
   font-size: 28px;
 }
@@ -418,7 +414,7 @@ h5 {
   font-family: Arial, sans-serif;
   color: #fff;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 table {

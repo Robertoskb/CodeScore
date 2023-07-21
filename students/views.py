@@ -4,14 +4,15 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import FormView, TemplateView
 
 from exams.forms import PythonFileForm
-from exams.models import Exam, Question
+from exams.models import Question
 from results.models import Result
+from students.forms import PINform
 from utils.corrector import corrector
-from utils.get_exams import get_exam
+from utils.get_exams import get_exam_by_code
 from utils.sidebar_mixin import SideBarMixin
 
 required = login_required(login_url='profiles:login',
@@ -32,15 +33,16 @@ def pdf_view(request, path):
         raise Http404()
 
 
-class ExamsView(SideBarMixin, TemplateView):
-    template_name = 'students/pages/home.html'
+class SearchPINView(SideBarMixin, FormView):
+    template_name = 'students/pages/search_pin.html'
+    form_class = PINform
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def form_valid(self, form):
+        pin = form.cleaned_data['pin'].upper()
 
-        context['exams'] = Exam.objects.filter(available=True)
+        self.success_url = reverse('students:exam', args=(pin,))
 
-        return context
+        return super().form_valid(form)
 
 
 class ExamView(SideBarMixin, TemplateView):
@@ -49,9 +51,9 @@ class ExamView(SideBarMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        exam_name = kwargs['exam']
+        pin = kwargs['pin']
 
-        exam = get_exam(exam_name, check_available=True)
+        exam = get_exam_by_code(code=pin)
 
         questions = exam.questions.all()
 
@@ -71,9 +73,9 @@ class QuestionView(SideBarMixin, FormView):
         context = super().get_context_data(**kwargs)
 
         question_name = self.kwargs['question']
-        exam_name = self.kwargs['exam']
+        pin = self.kwargs['pin']
 
-        exam = get_exam(exam_name, check_available=True)
+        exam = get_exam_by_code(pin)
 
         question = get_object_or_404(Question, slug=question_name)
 
