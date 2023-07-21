@@ -39,7 +39,7 @@ class CreateQuestion(TeacherMixin, FormView):
 
         if Question.objects.filter(name=name, exam=exam).exists():
             form.add_error(
-                'name', 'Já existe uma questão com esse nome nessa prova')
+                'name', 'Uma questão com esse nome já foi incluída nesta prova')  # noqa:E501
 
             return self.form_invalid(form)
         return super().post(request, *args, **kwargs)

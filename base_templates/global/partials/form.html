@@ -7,7 +7,7 @@
             {{ field }}
 
             {% for error in field.errors %}
-                {{ error }}
+                <p class="error">{{ error }}</p>
             {% endfor %}
         {% endfor %}
 

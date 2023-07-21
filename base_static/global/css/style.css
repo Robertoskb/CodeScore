@@ -325,7 +325,7 @@ nav.open ~ .overlay {
   
 }
 
-.errors p {
+.error, .errors p {
   color: rgb(194 0 0);
 }
 
