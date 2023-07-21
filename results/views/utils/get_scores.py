@@ -14,7 +14,8 @@ def get_exam_results_from_user(user, exam):
     questions = {question.name: {'submissions': [], 'score': 0}
                  for question in exam.questions.all()}
 
-    results = Result.objects.filter(user=user, question__exam=exam)
+    results = Result.objects.filter(
+        user=user, question__exam=exam).order_by('-id')
 
     for submission in results.prefetch_related('question'):
         question_name = submission.question.name
