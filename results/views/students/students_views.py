@@ -58,12 +58,15 @@ class ResultsStudentView(SideBarMixin, TemplateView):
 
         total_score = sum(r['scores']['score_obtained']
                           for r in results.values())
+        total_max_score = sum(r['scores']['max_score']
+                              for r in results.values())
 
         context.update({
             'results': results,
             'student': f'{user.first_name} {user.last_name}',
             'exam': exam,
             'total_score': total_score,
+            'total_max_score': total_max_score,
         })
 
         return context

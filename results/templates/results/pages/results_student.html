@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1 class="title">{{ exam.name }} - {{ student }}</h1>
-    <h2 class="title-2">Resultado Final: {{ total_score }} Pontos</h2>
+    <h2 class="title-2">Resultado Final: {{ total_score }}/{{ total_max_score }} Pontos</h2>
 
     {% for question_name, results in results.items %}
         {% if results.submissions %}

@@ -1,7 +1,9 @@
+import zipfile
 from random import choice
 from string import ascii_uppercase
 
 from autoslug import AutoSlugField
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -29,13 +31,40 @@ class Exam(models.Model):
         return self.name
 
 
+def zip_validator(value):
+    try:
+        with zipfile.ZipFile(value, 'r') as zip_file:
+            files_in = files_out = 0
+
+            for file in zip_file.namelist():
+                if file.endswith('in'):
+                    files_in += 1
+                if file.endswith('out'):
+                    files_out += 1
+
+            if 0 in (files_in, files_out) or files_in != files_out:
+                raise ValidationError('Gabarito inválido')
+
+    except zipfile.BadZipFile:
+        raise ValidationError('Arquivo zip inválido')
+
+
 class Question(models.Model):
     name = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='name', unique=True)
     statement_pdf = models.FileField(upload_to='exams/statements/')
-    answer_zip = models.FileField(upload_to='exams/answers/')
+    answer_zip = models.FileField(
+        upload_to='exams/answers/', validators=(zip_validator,))
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE, related_name='questions')
+    max_score = models.IntegerField(editable=False)
+
+    def save(self, *args, **kwargs):
+        with zipfile.ZipFile(self.answer_zip.path) as zip_file:
+            self.max_score = sum(1 for name in zip_file.namelist()
+                                 if name.endswith('in')) * 10
+
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

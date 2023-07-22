@@ -1,4 +1,5 @@
 from django.db.models import Max
+from django.http import Http404
 
 from results.models import Result
 
@@ -12,12 +13,16 @@ def get_questions_maximum_score(user, question):
 
 def get_exam_results_from_user(user, exam):
     questions = {question.name: {'submissions': [],
-                                 'scores': {'score_obtained': 0,
-                                            'max_score': None}}
+                                 'scores': {
+                                     'score_obtained': 0,
+                                     'max_score': question.max_score}}
                  for question in exam.questions.all()}
 
     results = Result.objects.filter(
         user=user, question__exam=exam).order_by('-id')
+
+    if not results:
+        raise Http404()
 
     for submission in results.prefetch_related('question'):
         question_name = submission.question.name
