@@ -9,6 +9,6 @@ urlpatterns = [
     path('prova/<str:pin>/', views.ExamView.as_view(), name='exam'),
     path('prova/<str:pin>/<str:question>',
          views.QuestionView.as_view(), name='question'),
-    path('enunciado/<path:path>/',
+    path('enunciado/<str:question>/<path:path>/',
          views.pdf_view, name='statement')
 ]

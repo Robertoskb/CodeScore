@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="title-ambient">{{ question }}</h1>
     <div class="questao-container">
-        <a href="{% url 'students:statement' question.statement_pdf.name %}" type="application/pdf" class="linkDownload">
+        <a href="{% url 'students:statement' question.slug question.statement_pdf.name %}" type="application/pdf" class="linkDownload">
             <button class="btn btn-light downloadButton">Enunciado em PDF</button>
         </a>
         <br>

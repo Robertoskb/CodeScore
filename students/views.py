@@ -20,7 +20,10 @@ required = login_required(login_url='profiles:login',
 
 
 @login_required(login_url='profiles:login', redirect_field_name='next')
-def pdf_view(request, path):
+def pdf_view(request, question, path):
+    get_object_or_404(Question.objects.prefetch_related('exam'),
+                      slug=question, exam__available=True, statement_pdf=path)
+
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
         file_name = file_path.split('/')[-1]

@@ -13,7 +13,7 @@
                 <td>{{ submission.date|date:"d-m-Y" }} {{ submission.date|date:"h:i A" }}</td>
                 <td>{{ submission.score_obtained }}</td>
                 <td>
-                    <a href="{% url 'results:solution' submission.solution_file.name %}" type="application/x-python">
+                    <a href="{% url 'results:solution' submission.id submission.solution_file.name %}" type="application/x-python">
                         <button class="btn btn-light">Baixar</button>
                     </a>
                 </td>

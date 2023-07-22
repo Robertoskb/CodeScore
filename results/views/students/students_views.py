@@ -13,8 +13,25 @@ from utils.sidebar_mixin import SideBarMixin, get_user_type, login_required
 User = get_user_model()
 
 
+def check_user_type(user, other_username):
+    user_type = get_user_type(user)
+
+    username_validation = user.username != other_username
+    user_type_validation = 'admin' != user_type != 'teacher'
+
+    if username_validation and user_type_validation:
+        raise PermissionDenied
+
+
 @login_required(login_url='profiles:login', redirect_field_name='next')
-def python_download_view(request, path):
+def python_download_view(request, id, path):
+    user = request.user
+
+    result = get_object_or_404(
+        Result.objects.prefetch_related('user'), id=id, solution_file=path)
+
+    check_user_type(user, result.user.username)
+
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
         file_name = file_path.split('/')[-1]
@@ -52,13 +69,8 @@ class ResultsStudentView(SideBarMixin, TemplateView):
 
     def get(self, *args, **kwargs):
         user = self.request.user
-        user_type = get_user_type(user)
 
-        username_validation = user.username != kwargs['username']
-        user_type_validation = 'admin' != user_type != 'teacher'
-
-        if username_validation and user_type_validation:
-            raise PermissionDenied
+        check_user_type(user, kwargs['username'])
 
         return super().get(*args, **kwargs)
 
