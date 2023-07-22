@@ -137,6 +137,12 @@ main {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
 }
 
+.messageAviso{
+  color: #fff;
+  margin-top: 10%;
+  text-align: center;
+  font-family:'Courier New', Courier, monospace, 'Arial Narrow Bold', sans-serif, 'Arial Narrow', Arial, sans-serif, Courier, monospace;
+}
 .plusAddProvas {
   margin-left: 60px;
 }

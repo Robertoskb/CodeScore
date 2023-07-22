@@ -6,14 +6,11 @@
 
     <h1 class="title">{{ exam.name }} - Questões</h1>
 
-    <a href="{% url 'results:user' exam.slug user.username %}">
-        <div class="buttonResults">
-            <button class="btn btn-light">Submissões</button>
-        </div>
-    </a>
-
     {% for question in questions %}
         {% include 'students/partials/question_card.html' %}
+        
+    {% empty %}
+        {% include 'global/partials/empty_message.html' %}
     {% endfor %}
 
 {% endblock content %}

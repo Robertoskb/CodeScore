@@ -16,8 +16,9 @@ class ExamResultsView(TeacherMixin, TemplateView):
         exam = get_exam(exam_name)
         users = User.objects.all()
 
-        users_score = ((user, get_sum_of_highest_scores(user, exam))
-                       for user in users)
+        sums = ((user, get_sum_of_highest_scores(user, exam)) for user in users)  # noqa: E501
+
+        users_score = ((user, score) for user, score in sums if score is not None)  # noqa: E501
 
         context['users_score'] = users_score
         context['exam'] = exam
