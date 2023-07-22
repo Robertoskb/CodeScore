@@ -11,7 +11,9 @@ def get_questions_maximum_score(user, question):
 
 
 def get_exam_results_from_user(user, exam):
-    questions = {question.name: {'submissions': [], 'score': 0}
+    questions = {question.name: {'submissions': [],
+                                 'scores': {'score_obtained': 0,
+                                            'max_score': None}}
                  for question in exam.questions.all()}
 
     results = Result.objects.filter(
@@ -21,11 +23,13 @@ def get_exam_results_from_user(user, exam):
         question_name = submission.question.name
         questions[question_name]['submissions'].append(submission)
 
-        current_score = questions[question_name]['score']
+        current_score = questions[question_name]['scores']['score_obtained']
         submission_score = submission.score_obtained
+        submission_max_score = submission.max_score
 
         if submission_score > current_score:
-            questions[question_name]['score'] = submission_score
+            questions[question_name]['scores']['score_obtained'] = submission_score  # noqa:E501
+            questions[question_name]['scores']['max_score'] = submission_max_score  # noqa:E501
 
     return questions
 

@@ -56,7 +56,8 @@ class ResultsStudentView(SideBarMixin, TemplateView):
         exam = get_exam(exam_name)
         results = get_exam_results_from_user(user, exam)
 
-        total_score = sum(r['score'] for r in results.values())
+        total_score = sum(r['scores']['score_obtained']
+                          for r in results.values())
 
         context.update({
             'results': results,
