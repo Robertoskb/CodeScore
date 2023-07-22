@@ -98,8 +98,6 @@ class ResultsStudentOverView(SideBarMixin, TemplateView):
         return context
 
     def get(self, *args, **kwargs):
-        user = self.request.user
-        if user.username != kwargs['username']:
-            raise PermissionDenied
+        check_user_type(self.request.user, kwargs['username'])
 
         return super().get(*args, **kwargs)
