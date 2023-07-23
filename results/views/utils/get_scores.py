@@ -50,8 +50,9 @@ def get_highest_scores(user, exam):
         question_id = submission.question.id
         current_score = highest_scores[question_id]
         submission_score = submission.score_obtained
+        need_resubmission = submission.need_resubmission
 
-        if submission_score > current_score:
+        if submission_score > current_score and not need_resubmission:
             highest_scores[question_id] = submission_score
 
     return highest_scores
