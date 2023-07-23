@@ -88,7 +88,7 @@ class ResultsStudentOverView(SideBarMixin, TemplateView):
         username = kwargs['username']
         user = get_object_or_404(User, username=username)
 
-        results = Result.objects.filter(user=user)
+        results = Result.objects.filter(user=user).order_by('-id')
 
         exams = {}
         for result in results.prefetch_related('question', 'question__exam'):
