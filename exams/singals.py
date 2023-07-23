@@ -3,6 +3,8 @@ import os
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
 
+from results.models import Result
+
 from .models import Question
 
 
@@ -11,6 +13,10 @@ def delete_file(file):
         os.remove(file.path)
     except (ValueError, FileNotFoundError):
         ...
+
+
+def delete_results(question):
+    Result.objects.filter(question=question).delete()
 
 
 @receiver(post_delete, sender=Question)
@@ -31,3 +37,4 @@ def post_pre_save_question(sender, instance, **kwargs):
             delete_file(old_pdf)
         if old_zip != instance.answer_zip:
             delete_file(old_zip)
+            delete_results(instance)
