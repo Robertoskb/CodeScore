@@ -1,14 +1,13 @@
-from django.db.models import Max
 from django.http import Http404
 
 from results.models import Result
 
 
 def get_questions_maximum_score(user, question):
-    filter = Result.objects.filter(user=user, question=question)
-    max_score = filter.aggregate(Max('score_obtained'))['score_obtained__max']
+    result = Result.objects.filter(
+        user=user, question=question).order_by('-score_obtained').first()
 
-    return max_score
+    return result
 
 
 def get_exam_results_from_user(user, exam):
@@ -30,11 +29,9 @@ def get_exam_results_from_user(user, exam):
 
         current_score = questions[question_name]['scores']['score_obtained']
         submission_score = submission.score_obtained
-        submission_max_score = submission.max_score
 
         if submission_score > current_score:
             questions[question_name]['scores']['score_obtained'] = submission_score  # noqa:E501
-            questions[question_name]['scores']['max_score'] = submission_max_score  # noqa:E501
 
     return questions
 

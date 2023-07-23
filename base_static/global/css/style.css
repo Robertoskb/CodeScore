@@ -18,10 +18,14 @@ main {
   width: 97%;
 }
 
-.buttonResults{
+.buttonResults, .buttonBack{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.buttonBack {
+  margin-bottom: 1%;
 }
 
 .form-container {
@@ -113,6 +117,14 @@ main {
   color: white;
   font-size: 28px;
   background-color: #417B5A;
+}
+
+.subtitle{
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  color:black;
+  font-size: 20px;
 }
 
 .title-2 {

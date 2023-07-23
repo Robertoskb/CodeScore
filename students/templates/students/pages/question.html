@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1 class="title-ambient">{{ question }}</h1>
+    {% if not best_result is None %}
+        <h4 class="subtitle">Maior pontuação: {{ best_result.score_obtained }}/{{ best_result.max_score }}</h4>
+    {% endif %}
     <div class="questao-container">
         <a href="{% url 'students:statement' question.slug question.statement_pdf.name %}" type="application/pdf" class="linkDownload">
             <button class="btn btn-light downloadButton">Enunciado em PDF</button>

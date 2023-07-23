@@ -4,6 +4,11 @@
 
 {% block content %}
     <h1 class="title">Resultados - {{ exam.name }}</h1>
+    <div class="buttonBack">
+        <a href="{% url 'teachers:exam' exam.slug %}">
+            <button class="btn btn-light">Questões</button>
+        </a>
+    </div>
     
     {% for user, score in users_score %}
         {% include 'results/partials/student_card.html' %}

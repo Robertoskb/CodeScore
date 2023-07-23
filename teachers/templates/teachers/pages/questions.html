@@ -5,11 +5,15 @@
 {% block content %}
 
     <h1 class="title">{{ exam.name }} - Questões</h1>
-    <a href="{% url 'results:exam' exam.slug %}">
+    <h4 class="subtitle">PIN: {{ exam.code }}</h4>
         <div class="buttonResults">
-            <button class="btn btn-light">Ver Resultados</button>
+            <a href="{% url 'teachers:exams' %}">
+                <button class="btn btn-light">Provas</button>
+            </a>
+            <a href="{% url 'results:exam' exam.slug %}">
+                <button class="btn btn-light">Ver Resultados</button>
+            </a>
         </div>
-    </a>
 
     <div class="card d-inline-block" style="width: 14rem;">
         <div class="card-body">

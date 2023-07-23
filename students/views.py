@@ -10,6 +10,7 @@ from django.views.generic import FormView, TemplateView
 from exams.forms import PythonFileForm
 from exams.models import Question
 from results.models import Result
+from results.views.utils import get_questions_maximum_score
 from students.forms import PINform
 from utils.corrector import corrector
 from utils.get_exams import get_exam_by_code
@@ -82,9 +83,12 @@ class QuestionView(SideBarMixin, FormView):
 
         question = get_object_or_404(Question, slug=question_name)
 
+        best_result = get_questions_maximum_score(self.request.user, question)
+
         context.update({
             'question': question,
             'exam': exam,
+            'best_result': best_result,
         })
 
         return context
