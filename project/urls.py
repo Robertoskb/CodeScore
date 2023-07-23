@@ -29,5 +29,9 @@ urlpatterns = [
     path('resultados/', include('results.urls')),
 ]
 
+
+handler404 = 'project.views.page_not_found_view'
+handler403 = 'project.views.access_denied_view'
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
