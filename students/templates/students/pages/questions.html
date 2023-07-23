@@ -5,6 +5,11 @@
 {% block content %}
 
     <h1 class="title">{{ exam.name }} - Questões</h1>
+    <div class="buttonBack">
+        <a href="{% url 'students:search_pin' %}">
+            <button class="btn btn-light">Voltar</button>
+        </a>
+    </div>
 
     {% for question in questions %}
         {% include 'students/partials/question_card.html' %}
