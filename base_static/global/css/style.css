@@ -36,6 +36,10 @@ main {
     margin: auto;
 }
 
+.search-box{
+  margin-top: 150px;
+}
+
 .form-title {
     color: white;
     text-align: center;
@@ -409,7 +413,6 @@ input[type="file"]{
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       text-align: center;
     }
   .button-questao {
