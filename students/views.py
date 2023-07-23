@@ -101,7 +101,7 @@ class QuestionView(SideBarMixin, FormView):
         existing_results = Result.objects.filter(
             user=user, question=question, need_resubmission=False).count()
 
-        if existing_results > 50:
+        if existing_results > 49:
             form.add_error(
                 'python_file', 'Número máximo de submissões atingido')
 
