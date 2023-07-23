@@ -42,6 +42,7 @@ class Question(models.Model):
     exam = models.ForeignKey(
         Exam, on_delete=models.CASCADE, related_name='questions')
     max_score = models.IntegerField(editable=False, null=True)
+    modified = models.BooleanField(default=False, editable=False)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

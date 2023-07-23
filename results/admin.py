@@ -6,7 +6,7 @@ from .models import Result
 @admin.register(Result)
 class ResultAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'question', 'exam',
-                    'score_obtained', 'max_score', 'date')
+                    'score_obtained', 'max_score', 'date', 'need_resubmission')
 
     def exam(self, obj):
         return obj.question.exam

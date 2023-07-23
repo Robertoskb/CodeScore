@@ -14,6 +14,7 @@ class Result(models.Model):
     score_obtained = models.IntegerField()
     max_score = models.IntegerField()
     solution_file = models.FileField(upload_to='exams/solutions/')
+    need_resubmission = models.BooleanField(default=False, editable=False)
 
     def clean(self):
         existing_results = Result.objects.filter(

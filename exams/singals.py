@@ -15,8 +15,10 @@ def delete_file(file):
         ...
 
 
-def delete_results(question):
-    Result.objects.filter(question=question).delete()
+def marck_results(question):
+    for result in Result.objects.filter(question=question):
+        result.need_resubmission = True
+        result.save()
 
 
 @receiver(post_delete, sender=Question)
@@ -37,4 +39,6 @@ def post_pre_save_question(sender, instance, **kwargs):
             delete_file(old_pdf)
         if old_zip != instance.answer_zip:
             delete_file(old_zip)
-            delete_results(instance)
+            marck_results(instance)
+
+            instance.modified = True

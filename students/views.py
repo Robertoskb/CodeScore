@@ -134,4 +134,9 @@ class QuestionView(SideBarMixin, FormView):
         self.success_url = reverse_lazy(
             'students:question', args=(exam.slug, question.slug))
 
+        best_result = context['best_result']
+
+        if best_result is None or score > best_result.score_obtained:
+            context['best_result'] = result
+
         return self.render_to_response(context)

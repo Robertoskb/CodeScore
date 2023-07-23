@@ -5,7 +5,8 @@ from results.models import Result
 
 def get_questions_maximum_score(user, question):
     result = Result.objects.filter(
-        user=user, question=question).order_by('-score_obtained').first()
+        user=user, question=question,
+        need_resubmission=False).order_by('-score_obtained').first()
 
     return result
 
@@ -29,8 +30,9 @@ def get_exam_results_from_user(user, exam):
 
         current_score = questions[question_name]['scores']['score_obtained']
         submission_score = submission.score_obtained
+        need_resubmission = submission.need_resubmission
 
-        if submission_score > current_score:
+        if submission_score > current_score and not need_resubmission:
             questions[question_name]['scores']['score_obtained'] = submission_score  # noqa:E501
 
     return questions

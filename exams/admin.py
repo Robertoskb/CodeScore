@@ -15,6 +15,6 @@ class ExamAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'max_score',)
+    list_display = ('name', 'max_score', 'modified')
     list_display_links = ('name',)
     readonly_fields = ('max_score',)
