@@ -99,7 +99,7 @@ class QuestionView(SideBarMixin, FormView):
         question = self.get_context_data()['question']
 
         existing_results = Result.objects.filter(
-            user=user, question=question).count()
+            user=user, question=question, need_resubmission=False).count()
 
         if existing_results > 50:
             form.add_error(

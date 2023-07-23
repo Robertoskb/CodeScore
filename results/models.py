@@ -17,12 +17,6 @@ class Result(models.Model):
     need_resubmission = models.BooleanField(default=False, editable=False)
 
     def clean(self):
-        existing_results = Result.objects.filter(
-            user=self.user, question=self.question).count()
-
-        if existing_results > 50:
-            raise ValidationError("Número máximo de submissões atingido")
-
         if self.score_obtained > self.max_score:
             raise ValidationError(
                 "Pontuação obtida não pode ser maior do que a pontuação máxima.")  # noqa:E50
