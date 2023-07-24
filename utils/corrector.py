@@ -13,7 +13,7 @@ correct = {'message': 'A saída está correta',
 
 
 def replace_inputs(alg):
-    algfinal = "import sys\niter_args = iter(sys.argv[1:])\n"
+    finalalg = "import sys\niter_args = iter(sys.argv[1:])\n"
     for l in alg:  # noqa: E741
         if l.startswith("#"):
             continue
@@ -22,43 +22,46 @@ def replace_inputs(alg):
         while "input" in aux:
             aux = aux.replace(aux[aux.find("input"):aux.find(
                 ")", aux.find("input")) + 1], "next(iter_args)", 1)
-        algfinal += aux
-    algfinal += '\n'
+        finalalg += aux
+    finalalg += '\n'
 
-    return algfinal
+    return finalalg
 
 
-def corrector(questao, gabarito):
-    # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
-    alg = questao.read().decode('utf-8').split('\n')
-    algfinal = replace_inputs(alg)
+def get_ans_in_out(answer):
+    ans_in = []
+    ans_out = []
 
-    with open("temp.py", "w") as file:
-        file.write(algfinal)
-
-    # Fase 2 - Entrada e Saída do Gabaritos
-    gab_in = []
-    gab_out = []
-
-    with zipfile.ZipFile(gabarito) as myzip:
+    with zipfile.ZipFile(answer) as myzip:
         path_name = myzip.namelist()[0].split('/')[0]
 
         for i in range(1, (len(myzip.namelist())//2)+1):
             with myzip.open(path_name+'/'+str(i)+".in") as f:
-                gab_in.append([x.decode('utf-8').strip()
+                ans_in.append([x.decode('utf-8').strip()
                               for x in f.readlines()])
             with myzip.open(path_name+'/'+str(i)+".out") as f:
-                gab_out.append([x.decode('utf-8').strip()
+                ans_out.append([x.decode('utf-8').strip()
                                for x in f.readlines()])
+    return ans_in, ans_out
 
-    # print(gab_in)
-    # print(gab_out)
+
+def corrector(python_file, answer):
+    # Fase 1 - ler questão e trata para entrada de argumentos do gabarito
+    alg = python_file.read().decode('utf-8').split('\n')
+    finalalg = replace_inputs(alg)
+
+    with open("temp.py", "w") as file:
+        file.write(finalalg)
+
+    # Fase 2 - Entrada e Saída do Gabaritos
+
+    ans_in, ans_out = get_ans_in_out(answer)
 
     # Fase 3 - para cada entrada verifica o resultado com a saída
     logs = []
-    acertos = 0
-    for i in range(len(gab_in)):
-        sin = "\"".join(gab_in[i])
+    score = 0
+    for i in range(len(ans_in)):
+        sin = "\"".join(ans_in[i])
         args = sin.split("\"")
         args.insert(0, "python")
         args.insert(1, 'temp.py')
@@ -72,24 +75,27 @@ def corrector(questao, gabarito):
             stdoutdata, stderrdata = process.stdout, process.stderr
             if stderrdata:
                 logs.append(error)
+
             else:
-                saida = stdoutdata[:-1].split("\n")
-                saida = [k.lower() for k in saida]
-                gab_out[i] = [k.lower() for k in gab_out[i]]
-                if all(map(operator.eq, saida, gab_out[i])):
+                output = stdoutdata[:-1].split("\n")
+                output = [k.lower() for k in output]
+                ans_out[i] = [k.lower() for k in ans_out[i]]
+                if all(map(operator.eq, output, ans_out[i])):
                     logs.append(correct)
-                    acertos += 1
+                    score += 1
                 else:
                     logs.append(incorrect)
+
         except subprocess.TimeoutExpired:
             copy = specific_error.copy()
             copy['message'] = 'Erro: Excedeu o tempo de limite de execução'
             logs.append(copy)
+
         except Exception as e:
             copy = specific_error.copy()
             copy['message'] = f'Erro: {e}'
             logs.append(copy)
 
-    logs.append({'score': acertos*10, 'max_score': len(gab_out)*10})
+    logs.append({'score': score*10, 'max_score': len(ans_out)*10})
 
     return logs
