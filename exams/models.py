@@ -3,9 +3,12 @@ from random import choice
 from string import ascii_uppercase
 
 from autoslug import AutoSlugField
+from django.contrib.auth import get_user_model
 from django.db import models
 
 from utils.validators import pdf_validator, zip_validator
+
+User = get_user_model()
 
 
 def get_code(length):
@@ -13,10 +16,12 @@ def get_code(length):
 
 
 class Exam(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='name', unique=True)
     code = models.CharField(max_length=6, unique=True, editable=False)
     available = models.BooleanField(default=False)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='exams')
 
     def save(self, *args, **kwargs):
         if self.pk is None:

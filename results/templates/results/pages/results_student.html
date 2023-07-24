@@ -6,7 +6,7 @@
     <h1 class="title">{{ exam.name }} - {{ student }}</h1>
     <h2 class="title-2">Resultado Final: {{ total_score }}/{{ total_max_score }} Pontos</h2>
     <div class="buttonBack">
-        {% if teacher_permision %}
+        {% if exam.author == user %}
             <a href="{% url 'results:exam' exam.slug %}">
                 <button class="btn btn-light">Resultados</button>
             </a>

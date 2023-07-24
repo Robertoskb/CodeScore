@@ -4,6 +4,7 @@ from django.views.generic import FormView, TemplateView, UpdateView, View
 
 from exams.forms import Exam, ExamForm
 from utils.get_exams import get_exam
+from utils.user_type import check_teacher
 
 from .teacher_mixin import TeacherMixin
 
@@ -14,7 +15,7 @@ class TeacherExams(TeacherMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["exams"] = Exam.objects.all().order_by('-id')
+        context["exams"] = self.request.user.exams.order_by('-id')
 
         return context
 
@@ -32,7 +33,9 @@ class CreateExam(TeacherMixin, FormView):
         return context
 
     def form_valid(self, form):
-        exam = form.save()
+        exam = form.save(commit=False)
+        exam.author = self.request.user
+        exam.save()
 
         self.success_url = reverse('teachers:exam', args=(exam.slug,))
 
@@ -54,12 +57,18 @@ class UpdateExam(TeacherMixin, UpdateView):
         return context
 
     def get_object(self, queryset=None):
-        return get_exam(self.kwargs['exam'])
+        exam = get_exam(self.kwargs['exam'])
+
+        check_teacher(self.request.user, exam.author, exam)
+
+        return exam
 
 
 class DeleteExam(TeacherMixin, View):
     def post(self, *args, **kwargs):
         exam = get_exam(self.request.POST.get('exam', None))
+
+        check_teacher(self.request.user, exam.author, exam)
 
         exam.delete()
 
@@ -69,6 +78,8 @@ class DeleteExam(TeacherMixin, View):
 class ChangeExamStatus(TeacherMixin, View):
     def post(self, *args, **kwargs):
         exam = get_exam(self.request.POST.get('exam', None))
+
+        check_teacher(self.request.user, exam.author, exam)
 
         exam.available = not exam.available
         exam.save()

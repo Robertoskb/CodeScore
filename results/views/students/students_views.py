@@ -8,19 +8,10 @@ from django.views.generic import TemplateView
 
 from results.views.utils import Result, get_exam_results_from_user
 from utils.get_exams import get_exam, get_object_or_404
-from utils.sidebar_mixin import SideBarMixin, get_user_type, login_required
+from utils.sidebar_mixin import SideBarMixin, login_required
+from utils.user_type import check_teacher
 
 User = get_user_model()
-
-
-def check_user_type(user, other_username):
-    user_type = get_user_type(user)
-
-    username_validation = user.username != other_username
-    user_type_validation = 'admin' != user_type != 'teacher'
-
-    if username_validation and user_type_validation:
-        raise PermissionDenied
 
 
 @login_required(login_url='profiles:login', redirect_field_name='next')
@@ -28,9 +19,10 @@ def python_download_view(request, id, path):
     user = request.user
 
     result = get_object_or_404(
-        Result.objects.prefetch_related('user'), id=id, solution_file=path)
+        Result.objects.prefetch_related('user', 'question__exam__author'),
+        id=id, solution_file=path)
 
-    check_user_type(user, result.user.username)
+    check_teacher(user, result.user.username, result.question.exam)
 
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     try:
@@ -54,6 +46,9 @@ class ResultsStudentView(SideBarMixin, TemplateView):
 
         user = get_object_or_404(User, username=username)
         exam = get_exam(exam_name)
+
+        check_teacher(self.request.user, username, exam)
+
         results = get_exam_results_from_user(user, exam)
 
         total_score = sum(r['scores']['score_obtained']
@@ -71,13 +66,6 @@ class ResultsStudentView(SideBarMixin, TemplateView):
 
         return context
 
-    def get(self, *args, **kwargs):
-        user = self.request.user
-
-        check_user_type(user, kwargs['username'])
-
-        return super().get(*args, **kwargs)
-
 
 class ResultsStudentOverView(SideBarMixin, TemplateView):
     template_name = 'results/pages/results_overview.html'
@@ -88,20 +76,18 @@ class ResultsStudentOverView(SideBarMixin, TemplateView):
         username = kwargs['username']
         user = get_object_or_404(User, username=username)
 
+        if self.request.user != user:
+            raise PermissionDenied
+
         results = Result.objects.filter(user=user).order_by('-id')
 
         exams = {}
         for result in results.prefetch_related('question', 'question__exam'):
             exam = result.question.exam
-            exams[exam.name] = exam.slug
+            exams[exam.slug] = exam.name
 
         context.update({
             'exams': exams,
         })
 
         return context
-
-    def get(self, *args, **kwargs):
-        check_user_type(self.request.user, kwargs['username'])
-
-        return super().get(*args, **kwargs)
