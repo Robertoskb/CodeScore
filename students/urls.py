@@ -7,7 +7,7 @@ app_name = 'students'
 urlpatterns = [
     path('', views.SearchPINView.as_view(), name='search_pin'),
     path('prova/<str:pin>/', views.ExamView.as_view(), name='exam'),
-    path('prova/<str:pin>/<str:question>',
+    path('prova/<str:pin>/<str:question>/',
          views.QuestionView.as_view(), name='question'),
     path('enunciado/<str:question>/<path:path>/',
          views.pdf_view, name='statement')
