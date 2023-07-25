@@ -4,6 +4,7 @@ from django.views.generic import FormView, TemplateView, UpdateView, View
 
 from exams.forms import Question, QuestionForm
 from utils.get_exams import get_exam, get_object_or_404
+from utils.user_type import check_teacher
 
 from .teacher_mixin import TeacherMixin
 
@@ -17,6 +18,9 @@ class TeacherQuestions(TeacherMixin, TemplateView):
         exam_name = kwargs['exam']
 
         exam = get_exam(exam_name)
+
+        check_teacher(self.request.user, exam.author, exam)
+
         questions = exam.questions.all().order_by('-id')
 
         context.update({
@@ -59,6 +63,8 @@ class CreateQuestion(TeacherMixin, FormView):
         context = super().get_context_data(**kwargs)
         exam = get_exam(self.kwargs['exam'])
 
+        check_teacher(self.request.user, exam.author, exam)
+
         context.update({
             'exam': exam,
             'form_title': 'Cadastro de Questão',
@@ -77,6 +83,8 @@ class UpdateQuestion(TeacherMixin, UpdateView):
         context = super().get_context_data(**kwargs)
 
         exam = get_exam(self.kwargs['exam'])
+
+        check_teacher(self.request.user, exam.author, exam)
 
         context['form_title'] = 'Editar de Questão'
         context['cancel_url'] = reverse('teachers:exam', args=(exam.slug,))
@@ -102,6 +110,8 @@ class DeleteQuestion(TeacherMixin, View):
         pk = self.request.POST.get('question', None)
         question = get_object_or_404(Question, pk=pk)
         exam = question.exam
+
+        check_teacher(self.request.user, exam.author, exam)
 
         question.delete()
 
