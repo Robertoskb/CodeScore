@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class="title">Provas Realizadas</h1>
 
-    {% for exam_slug, exam_name in exams.items %}
+    {% for exam_name, exam_slug in exams.items %}
         {% include 'results/partials/exam_card.html' %}
     {% empty %}
         {% include 'global/partials/empty_message.html' %}
