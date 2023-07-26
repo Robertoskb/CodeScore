@@ -1,0 +1,43 @@
+{% extends 'global/base.html' %}
+
+{% load static %}
+
+{% block title %} Passo a Passo {% endblock title %}
+
+{% block content %}
+
+    <div class="titlePassos">
+        <h2>Passo a Passo - Professor</h2>
+    </div>
+        <div class="itemPassos">
+            <h4>1. Para adicionar uma prova, clique em "Adicionar":</h4>
+            <img src="{% static 'global/images/teachers/imagem1_professor.jpeg' %}" alt="passo 1" class="imgPassos" width="400">
+        </div>
+    <div class="itemPassos">
+        <h4>2. No cadastro, escreva o nome da prova:</h4>
+        <img src="{% static 'global/images/teachers/imagem2_professor.jpeg' %}" alt="passo 2" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>3. Ao cadastrar será gerado um PIN, para que a prova possa ser acessada:</h4>
+        <h4>4. Para adicionar uma questão, basta clicar em "Adicionar", na caixa "Adicionar questão":</h4>
+        <img src="{% static 'global/images/teachers/imagem3_professor.jpeg' %}" alt="passo 3" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>5. No formulário de cadastro, nomeie a questão e envie o enunciado em PDF e o gabarito em ZIP.</h4>
+        <img src="{% static 'global/images/teachers/imagem4_professor.jpeg' %}" alt="passo 4" class="imgPassos" width="400">
+    </div>
+    </div>
+    <div class="itemPassos">
+        <h4>6. Clicando em publicar, a prova ficará disponível para os alunos submeterem suas respostas:</h4>
+        <img src="{% static 'global/images/teachers/imagem6_professor.jpeg' %}" alt="passo 6" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>7. Clicando em ver resultados, aparecerá a lista de alunos que realizaram a prova:</h4>
+        <img src="{% static 'global/images/teachers/imagem8_professor.jpeg' %}" alt="passo 6" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>8. E clicando em acessar, verá o histórico de submissão do aluno junto com a pontuação final:</h4>
+        <img src="{% static 'global/images/teachers/imagem8.1_professor.jpeg' %}" alt="passo 6" class="imgPassos" width="400">
+    </div>
+
+{% endblock content %}

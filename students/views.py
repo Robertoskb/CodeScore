@@ -37,6 +37,10 @@ def pdf_view(request, question, path):
         raise Http404()
 
 
+class StudentTutorial(SideBarMixin, TemplateView):
+    template_name = 'students/pages/tutorial.html'
+
+
 class SearchPINView(SideBarMixin, FormView):
     template_name = 'students/pages/search_pin.html'
     form_class = PINform

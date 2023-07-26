@@ -6,6 +6,7 @@ app_name = 'teachers'
 
 urlpatterns = [
     path('', views.TeacherExams.as_view(),  name='exams'),
+    path('tutorial/', views.TeacherTutorial.as_view(), name='tutorial'),
     path("prova/criar", views.CreateExam.as_view(), name="create_exam"),
     path('prova/<str:exam>/', views.TeacherQuestions.as_view(), name='exam'),
     path("prova/<str:exam>/criar/",

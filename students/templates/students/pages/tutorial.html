@@ -1,0 +1,40 @@
+{% extends 'global/base.html' %}
+
+{% load static %}
+
+{% block title %} Passo a Passo {% endblock title %}
+
+{% block content %}
+
+    <div class="titlePassos">
+        <h2>Passo a Passo - Aluno</h2>
+    </div>
+    <div class="itemPassos">
+        <h4>1. Digite o pin da prova:</h4>
+        <img src="{% static 'global/images/students/passo1.png' %}" alt="passo 1" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>2. Acesse a prova:</h4>
+        <img src="{% static 'global/images/students/imagem2_aluno.jpeg' %}" alt="passo 2" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>3. Ao clicar em uma prova, você verá essa tela:</h4>
+        <img src="{% static 'global/images/students/imagem3_aluno.jpeg' %}" alt="passo 3" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>4. Ao clicar no botão “Enunciado em PDF”, você poderá ver a questão correspondente:</h4>
+        <img src="{% static 'global/images/students/imagem4_aluno.jpeg' %}" alt="passo 4" class="imgPassos2 imgPassos3" width="400">
+        <div><img src="{% static 'global/images/students/imagem4.1_aluno.jpeg' %}" alt="passo 4.1" class="imgPassos2 imgPassos4"
+                width="400">
+        </div>
+    </div>
+    <div class="itemPassos">
+        <h4>5. Ao terminar a questão, faça o upload de um arquivo Python e clique em enviar:</h4>
+        <img src="{% static 'global/images/students/imagem3_aluno.jpeg' %}" alt="passo 5" class="imgPassos" width="400">
+    </div>
+    <div class="itemPassos">
+        <h4>6. Após o envio, seu total de acertos irá aparecer:</h4>
+        <img src="{% static 'global/images/students/imagem6_aluno.jpeg' %}" alt="passo 6" class="imgPassos" width="400">
+    </div>
+
+{% endblock content %}

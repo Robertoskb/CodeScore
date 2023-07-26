@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+main, body{
+    background-color: #417B5A;
+}
+
+.titlePassos{
+    margin: 80px ;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+.itemPassos{
+    text-align: center;
+    color: white;
+}
+
+.imgPassos{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.imgPassos2{
+    margin-bottom: 0.4%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.imgPassos3 {
+margin-top: 3%;
+}
+
+.imgPassos4{
+    margin-bottom: 3%;
+}
