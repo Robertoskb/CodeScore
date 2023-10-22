@@ -1,3 +1,2 @@
 # CodeScore
- 
-Corretor de provas de programação
+  Corretor de provas de programação
